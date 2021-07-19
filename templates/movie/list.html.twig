@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movies List{% endblock %}
+
+{% block body %}
+
+	<div class="container mb-auto">
+	<div class="row d-flex">
+		<div class="col-11"><h1>Liste des Films</h1></div>
+		<div class="col-1 d-flex align-items-center"><a href="#" class="btn btn-success">Ajouter</a></div>
+	</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Title</th>
+					<th scope="col">Release Date</th>
+					<th scope="col">duration</th>
+					<th scope="col">createdAt</th>
+					<th scope="col">updatedAt</th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+
+			{% for index, movie in movies %}
+				<tbody>
+					<tr>
+						<th scope="row">
+							{# <a href="{{ path('show', {id: post.id}) }}">{{ index+1 }}</a> #}
+                            <a href="#">{{ movie.id }}</a>
+						</th>
+						<td>{{ movie.title }}</td>
+						<td>{{ movie.releaseDate|date("m/d/Y") }}</td>
+						<td>{{ movie.duration }} min</td>
+						<td>{{ movie.createdAt|date("m/d/Y H : i") }}</td>
+						<td>{{ movie.updatedAt|date("m/d/Y H : i") }}</td>
+
+						<form action="#" method="get">
+                        <td>
+							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								<button type="submit" class="btn btn-success edit"><i class="far fa-edit"></i></i></button>
+							</div>
+						</td>
+						</form>
+						<form action="#" method="get">
+						<td>
+							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								<button type="submit" class="btn btn-danger delete"><i class="far fa-trash-alt"></i></button>
+							</div>
+						</td>
+						</form>
+					</tr>
+				</tbody>
+			{% endfor %}
+
+		</table>
+	</div>
+{% endblock %}

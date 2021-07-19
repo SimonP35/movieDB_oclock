@@ -1,0 +1,24 @@
+<nav class="dark navbar-dark bg-dark container-fluid py-3">
+	<div class="row">
+		<div class="col-10">
+			<ul class="nav nav-pills ms-3">
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block menu_list %}{% endblock %}" href="{{ path('list') }}">Articles</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block menun_author %}{% endblock %}" href="{{ path('list_author') }}">Auteurs</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block menun_comment %}{% endblock %}" href="{{ path('list_comment') }}">Commentaires</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-2 d-flex flex-row-reverse">
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+					<a class="nav-link" href="#">Déconnexion</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
