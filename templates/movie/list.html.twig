@@ -28,7 +28,7 @@
 					<tr>
 						<th scope="row">
 							{# <a href="{{ path('show', {id: post.id}) }}">{{ index+1 }}</a> #}
-                            <a href="#">{{ movie.id }}</a>
+                            <a href="{{ path('movie_show', {id: movie.id}) }}">{{ movie.id }}</a>
 						</th>
 						<td>{{ movie.title }}</td>
 						<td>{{ movie.releaseDate|date("m/d/Y") }}</td>

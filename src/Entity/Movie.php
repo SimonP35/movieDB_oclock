@@ -110,7 +110,7 @@ class Movie
     /**
      * Get column 'created_at'
      */ 
-    public function getCreatedAt()
+    public function getCreatedAt(): DateTime
     {
         return $this->createdAt;
     }

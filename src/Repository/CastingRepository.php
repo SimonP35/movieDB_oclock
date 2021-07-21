@@ -47,4 +47,39 @@ class CastingRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Casting[]
+     */
+    public function findAllByMovieJoinedToPersonDQL($movie): ?array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            "SELECT c, p
+            FROM App\Entity\Casting c
+            INNER JOIN c.person p
+            WHERE c.movie = :movie
+            ORDER BY c.credit_order ASC"
+
+        )->setParameter('movie', $movie);
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
+    /**
+     * @return Casting[]
+     */
+    public function findAllByMovieJoinedToPersonQB($movie): ?array
+    {
+        return $this->createQueryBuilder('c')
+        ->addSelect('p')
+        ->innerJoin('c.person', 'p')
+        ->where('c.movie = :movie')
+        ->orderBy('c.credit_order', 'ASC')
+        ->setParameter('movie', $movie)
+        ->getQuery()
+        ->getResult();
+    }
 }

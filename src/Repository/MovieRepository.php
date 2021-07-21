@@ -47,4 +47,35 @@ class MovieRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Movie[]
+     */
+    public function findAllOrderByTitleAscDQL(): ?array
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery(
+            'SELECT m
+            FROM App\Entity\Movie m
+            ORDER BY m.title DESC'
+        );
+
+        // returns an array of Product objects
+        return $query->getResult();
+    }
+
+    /**
+     * @return Movie[]
+     */
+    public function findAllOrderByTitleAscQB(): ?array
+    {
+        // On crée un objet de type Query Builder, sur l'entité Movie
+        // (parce qu'on est sur MovieRepository)
+        // 'm' = un alias pour l'entité Movie
+        return $this->createQueryBuilder('m')
+            ->orderBy('m.title', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

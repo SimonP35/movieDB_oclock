@@ -28,27 +28,43 @@ class MovieController extends AbstractController
     public function list(MovieRepository $movieRepository)
     {
         $movies = $movieRepository->findAll();
+
+        //? Queries Customs (Repository)
+        // $movies = $movieRepository->findAllOrderByTitleAscQB();
+        // $movies = $movieRepository->findAllOrderByTitleAscDQL();
+
         // dump($movies);
 
-        return $this->render('movie/list.html.twig', [ 'movies' => $movies ]);
+        return $this->render('movie/list.html.twig', [
+             'movies' => $movies 
+        ]);
     }
 
     /**
-     * Read Movie
+     * Show Movie
      * @Route("/movie/show/{id<\d+>}", name="movie_show")
      */
-    public function show($id, MovieRepository $movieRepository, CastingRepository $castingRepository)
+    public function show(Movie $movie, CastingRepository $castingRepository)
     {
-        $movie = $movieRepository->find($id);
-        $castings = $castingRepository->findBy(
-            ["movie" => $movie->getId()],
-            ["credit_order" => "ASC"]
-        );
+        if ($movie === null) 
+        {
+            throw $this->createNotFoundException('Film non trouvé.');
+        }
+
+        // $castings = $castingRepository->findBy(
+        //     ["movie" => $movie],
+        //     ["credit_order" => "ASC"]
+        // );
+
+        // $castings = $castingRepository->findAllByMovieJoinedToPersonDQL($movie);
+        $castings = $castingRepository->findAllByMovieJoinedToPersonQB($movie);
 
         // dump($movie);
         // dump($casting);
 
-        return $this->render('movie/show.html.twig', [ 'movie' => $movie, 'castings' => $castings]);
+        return $this->render('movie/show.html.twig', [ 
+            'movie' => $movie,
+            'castings' => $castings
+        ]);
     }
-
 }
