@@ -29,6 +29,12 @@ class Genre
      */
     private $movies;
 
+    public function __toString()
+    {
+        // Retournons le prénom et le nom
+        return $this->name;
+    }
+
     public function __construct()
     {
         $this->movies = new ArrayCollection();

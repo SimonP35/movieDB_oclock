@@ -1,0 +1,120 @@
+<?php
+
+namespace App\Controller\Back;
+
+use DateTime;
+use App\Entity\Movie;
+use App\Form\MovieType;
+use App\Repository\MovieRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class MovieController extends AbstractController
+{
+    /**
+     * List Movie
+     * @Route("back/movie/list", name="back_movie_list")
+     */
+    public function list(MovieRepository $movieRepository): Response
+    {
+        $movies = $movieRepository->findAll();
+
+        //? Queries Customs (Repository)
+        // $movies = $movieRepository->findAllOrderByTitleAscQB();
+        // $movies = $movieRepository->findAllOrderByTitleAscDQL();
+
+        dump($movies);
+
+        return $this->render('back/movie/list.html.twig', [
+             'movies' => $movies 
+        ]);
+    }
+
+    /**
+     *
+     * Add Movie
+     * @Route("back/movie/add", name="back_movie_add", methods={"GET", "POST"})
+     */
+    public function add(Request $request): Response
+    {
+        $movie = new Movie();
+
+        $form = $this->createForm(MovieType::class, $movie);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $movie
+            ->setCreatedAt(new DateTime());
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($movie);
+            $manager->flush();
+
+            // dd($movie);
+
+            $this->addFlash('success', 'Le film ' . $movie->getTitle() . ' a bien été ajouté !');
+
+            return $this->redirectToRoute('back_movie_list');
+        }
+
+        return $this->render('back/movie/add.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     *
+     * Add Movie
+     * @Route("back/movie/edit/{id<\d+>}", name="back_movie_edit", methods={"GET", "POST"})
+     */
+    public function edit(Movie $movie = null, Request $request): Response
+    {
+        if (null === $movie) {
+            throw $this->createNotFoundException('Film non trouvé.');
+        }
+
+        $form = $this->createForm(MovieType::class, $movie);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $movie
+            ->setUpdatedAt(new DateTime());
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($movie);
+            $manager->flush();
+
+            // dd($movie);
+
+            $this->addFlash('success', 'Le film ' . $movie->getTitle() . ' a bien été modifié !');
+
+            return $this->redirectToRoute('back_movie_edit', [ 'id' => $movie->getId() ]);
+        }
+
+        return $this->render('back/movie/edit.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * Delete Movie
+     * @Route("back/movie/delete/{id<\d+>}", name="back_movie_delete")
+     */
+    public function delete(Movie $movie = null, EntityManagerInterface $entityManager): Response
+    {
+        if (null === $movie) {
+            throw $this->createNotFoundException('Article non trouvé.');
+        }
+
+        $entityManager->remove($movie);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Le film a bien été supprimé !');
+
+        return $this->redirectToRoute('back_movie_list');
+}
+
+}

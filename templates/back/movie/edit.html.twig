@@ -1,0 +1,21 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Edit Movies Here{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+<h1>Edit Movies Here</h1>
+
+{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+{{ form_start(form) }}
+
+</div>
+
+{% endblock %}

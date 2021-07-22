@@ -17,8 +17,10 @@
 
     </head>
 
-    {% include "include/_nav.html.twig" %}  
+    {% include "front/include/_nav.html.twig" %}  
     {# {% include 'include/_flash_messages.html.twig' %} #}
+
+    {% block nav_back %}{% endblock %}
 
     <body>
         {% block body %}{% endblock %}

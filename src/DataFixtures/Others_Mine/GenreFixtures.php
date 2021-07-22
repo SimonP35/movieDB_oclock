@@ -1,6 +1,6 @@
 <?php
 
-// namespace App\DataFixtures;
+namespace App\DataFixtures\Others_Mine;
 
 use Faker\Factory;
 use App\Entity\Genre;

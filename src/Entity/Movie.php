@@ -5,6 +5,7 @@ namespace App\Entity;
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +31,10 @@ class Movie
      * Column 'title'
      *
      * @ORM\Column(type="string", length=211)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Length(min = 2, max = 100)
+     * 
      */
     private $title;
 
@@ -59,18 +64,59 @@ class Movie
 
     /**
      * @ORM\Column(type="datetime")
+     * 
+     * @Assert\NotBlank
+     * 
      */
     private $release_date;
 
     /**
      * @ORM\Column(type="integer")
+     * 
+     * @Assert\NotBlank
+     * @Assert\Type("int") 
+     * @Assert\Length(min = 2, max = 3)
+     * 
      */
     private $duration;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="movie")
+     */
+    private $reviews;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Url
+     * 
+     */
+    private $poster;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Type("int") 
+     * @Assert\Length(max = 1)
+     * @Assert\Choice({5, 4, 3, 2, 1}) 
+     * 
+     */
+    private $rating;
+
+    public function __toString()
+    {
+        // Retournons le prénom et le nom
+        return $this->title;
+    }
 
     public function __construct()
     {
         $this->genres = new ArrayCollection();
         $this->castings = new ArrayCollection();
+        $this->reviews = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     /**
@@ -221,6 +267,90 @@ class Movie
     public function setDuration(int $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Review[]
+     */
+    public function getReviews(): Collection
+    {
+        return $this->reviews;
+    }
+
+    public function addReview(Review $review): self
+    {
+        if (!$this->reviews->contains($review)) {
+            $this->reviews[] = $review;
+            $review->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReview(Review $review): self
+    {
+        if ($this->reviews->removeElement($review)) {
+            // set the owning side to null (unless already changed)
+            if ($review->getMovie() === $this) {
+                $review->setMovie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPoster(): ?string
+    {
+        return $this->poster;
+    }
+
+    public function setPoster(?string $poster): self
+    {
+        $this->poster = $poster;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?int $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Team $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->removeElement($team)) {
+            // set the owning side to null (unless already changed)
+            if ($team->getMovie() === $this) {
+                $team->setMovie(null);
+            }
+        }
 
         return $this;
     }

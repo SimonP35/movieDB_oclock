@@ -1,0 +1,54 @@
+{% extends 'back/base.html.twig' %}
+
+{% block title %}Casting List{% endblock %}
+
+{% block body %}
+
+	<div class="container mb-auto">
+	<div class="row d-flex">
+		<div class="col-11"><h1>Liste des Castings</h1></div>
+		<div class="col-1 d-flex align-items-center"><a href="{{ path('back_casting_add') }}" class="btn btn-success">Ajouter</a></div>
+	</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Role</th>
+					<th scope="col">Credit Order</th>
+					<th scope="col">Person</th>
+					<th scope="col">Movie</th>
+					<th scope="col"></th>
+					<th scope="col"></th>
+				</tr>
+			</thead>
+
+			{% for casting in castings %}
+				<tbody>
+					<tr>
+						<th scope="row">{{ casting.id }}</th>
+						<td>{{ casting.role }}</td>
+						<td>{{ casting.creditOrder }}</td>
+						<td>{{ casting.person }}</td>
+						<td>{{ casting.movie }}</td>
+
+						<form action="{{ path('back_casting_edit', {id: casting.id}) }}" method="get">
+                        <td>
+							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								<button type="submit" class="btn btn-success edit"><i class="far fa-edit"></i></i></button>
+							</div>
+						</td>
+						</form>
+						<form action="{{ path('back_casting_delete', {id: casting.id}) }}" method="get">
+						<td>
+							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
+								<button type="submit" class="btn btn-danger delete"><i class="far fa-trash-alt"></i></button>
+							</div>
+						</td>
+						</form>
+					</tr>
+				</tbody>
+			{% endfor %}
+
+		</table>
+	</div>
+{% endblock %}

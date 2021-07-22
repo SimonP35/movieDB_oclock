@@ -1,6 +1,6 @@
 <?php
 
-// namespace App\DataFixtures;
+namespace App\DataFixtures\Others_Mine;
 
 use DateTime;
 use Faker\Factory;

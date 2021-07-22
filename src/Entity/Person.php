@@ -34,9 +34,16 @@ class Person
      */
     private $castings;
 
+    public function __toString()
+    {
+        // Retournons le prénom et le nom
+        return $this->firstname ." ". $this->lastname;
+    }
+
     public function __construct()
     {
         $this->castings = new ArrayCollection();
+        $this->teams = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,6 +99,36 @@ class Person
             // set the owning side to null (unless already changed)
             if ($casting->getPerson() === $this) {
                 $casting->setPerson(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Team[]
+     */
+    public function getTeams(): Collection
+    {
+        return $this->teams;
+    }
+
+    public function addTeam(Team $team): self
+    {
+        if (!$this->teams->contains($team)) {
+            $this->teams[] = $team;
+            $team->setPerson($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeam(Team $team): self
+    {
+        if ($this->teams->removeElement($team)) {
+            // set the owning side to null (unless already changed)
+            if ($team->getPerson() === $this) {
+                $team->setPerson(null);
             }
         }
 

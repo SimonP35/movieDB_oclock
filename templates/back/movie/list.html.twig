@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'back/base.html.twig' %}
 
 {% block title %}Movies List{% endblock %}
 
@@ -7,7 +7,7 @@
 	<div class="container mb-auto">
 	<div class="row d-flex">
 		<div class="col-11"><h1>Liste des Films</h1></div>
-		<div class="col-1 d-flex align-items-center"><a href="#" class="btn btn-success">Ajouter</a></div>
+		<div class="col-1 d-flex align-items-center"><a href="{{ path('back_movie_add') }}" class="btn btn-success">Ajouter</a></div>
 	</div>
 		<table class="table">
 			<thead>
@@ -18,6 +18,8 @@
 					<th scope="col">duration</th>
 					<th scope="col">createdAt</th>
 					<th scope="col">updatedAt</th>
+					<th scope="col">poster</th>
+					<th scope="col">rating</th>
 					<th scope="col"></th>
 					<th scope="col"></th>
 				</tr>
@@ -26,24 +28,23 @@
 			{% for index, movie in movies %}
 				<tbody>
 					<tr>
-						<th scope="row">
-							{# <a href="{{ path('show', {id: post.id}) }}">{{ index+1 }}</a> #}
-                            <a href="{{ path('movie_show', {id: movie.id}) }}">{{ movie.id }}</a>
-						</th>
+						<th scope="row">{{ movie.id }}</th>
 						<td>{{ movie.title }}</td>
 						<td>{{ movie.releaseDate|date("m/d/Y") }}</td>
 						<td>{{ movie.duration }} min</td>
 						<td>{{ movie.createdAt|date("m/d/Y H : i") }}</td>
 						<td>{{ movie.updatedAt|date("m/d/Y H : i") }}</td>
+						<td>{{ movie.poster|u.truncate(20) }}</td>
+						<td>{{ movie.rating }}</td>
 
-						<form action="#" method="get">
+						<form action="{{ path('back_movie_edit', {id: movie.id}) }}" method="get">
                         <td>
 							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								<button type="submit" class="btn btn-success edit"><i class="far fa-edit"></i></i></button>
 							</div>
 						</td>
 						</form>
-						<form action="#" method="get">
+						<form action="{{ path('back_movie_delete', {id: movie.id}) }}" method="get">
 						<td>
 							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								<button type="submit" class="btn btn-danger delete"><i class="far fa-trash-alt"></i></button>

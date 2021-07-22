@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Front;
 
-use DateTime;
 use App\Entity\Movie;
 use App\Repository\CastingRepository;
 use App\Repository\MovieRepository;
@@ -35,7 +34,7 @@ class MovieController extends AbstractController
 
         // dump($movies);
 
-        return $this->render('movie/list.html.twig', [
+        return $this->render('front/movie/list.html.twig', [
              'movies' => $movies 
         ]);
     }
@@ -62,7 +61,7 @@ class MovieController extends AbstractController
         // dump($movie);
         // dump($casting);
 
-        return $this->render('movie/show.html.twig', [ 
+        return $this->render('front/movie/show.html.twig', [ 
             'movie' => $movie,
             'castings' => $castings
         ]);
