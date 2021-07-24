@@ -531,6 +531,15 @@ class MovieDbProvider
         'Junior Artist',
     ];
 
+    private $reactions = [
+        'smile',
+        'cry',
+        'think',
+        'sleep',
+        'dream',
+    ];
+
+
     /**
      * Retourne un genre au hasard
      */
@@ -562,4 +571,13 @@ class MovieDbProvider
     {
         return $this->departments[array_rand($this->departments)];
     }
+
+    /**
+     * Retourne un réaction au hasard
+     */
+    public function reactionName()
+    {
+        return $this->reactions[array_rand($this->reactions)];
+    }
+
 }

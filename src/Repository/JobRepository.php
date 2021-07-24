@@ -47,4 +47,18 @@ class JobRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Job[]
+     */
+    public function findAllJoinedToDepartmentOrderByIdQB(): ?array
+    {
+        return $this->createQueryBuilder('j')
+        ->addSelect('d')
+        ->innerJoin('j.department', 'd')
+        ->orderBy('j.id', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+
 }

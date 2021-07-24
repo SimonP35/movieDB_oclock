@@ -4,10 +4,13 @@ namespace App\DataFixtures;
 
 use DateTime;
 use Faker\Factory;
+use App\Entity\Job;
 use App\Entity\Genre;
 use App\Entity\Movie;
 use App\Entity\Person;
+use App\Entity\Review;
 use App\Entity\Casting;
+use App\Entity\Department;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\MovieDbProvider;
@@ -45,7 +48,7 @@ class AppFixtures extends Fixture
         // 50 films
         for ($i = 1; $i <= 50; $i++) {
 
-            $nbGenre = mt_rand(1, 3);
+            $nbGenres = mt_rand(1, 3);
 
             $movie = new Movie();
             $movie->setTitle($faker->unique->movieTitle());
@@ -56,7 +59,7 @@ class AppFixtures extends Fixture
             $movie->setReleaseDate($faker->dateTimeBetween());
 
             // Association de 1 à 3 genres au hasard
-            for ($index = 1; $index <= $nbGenre; $index++) {
+            for ($index = 1; $index <= $nbGenres; $index++) {
                 // https://www.php.net/manual/fr/function.array-rand.php
                 // On va chercher un index au hasard (array_rand)
                 // dans le taleau des genres
@@ -66,6 +69,34 @@ class AppFixtures extends Fixture
             $moviesList[] = $movie;
 
             $manager->persist($movie);
+        }
+
+        // 100 reviews
+        for ($i = 1; $i <= 100; $i++) {
+
+            $nbReactions = mt_rand(0, 5);
+
+            $review = new Review();
+            $review->setUsername($faker->name());
+            $review->setEmail($faker->email());
+            $review->setContent($faker->paragraph());
+            $review->setRating($faker->numberBetween(1, 5));
+
+            // Association de 0 à 5 reactions au hasard
+            for ($index = 1; $index <= $nbReactions; $index++) {
+
+                $reaction = $faker->reactionName();
+                $reactionList[] = $reaction;
+            }
+
+            $review->setReactions($reactionList);
+            $reactionList = [];
+
+            $review->setMovie($moviesList[array_rand($moviesList)]);
+
+            $review->setWatchedAt($faker->dateTimeBetween());
+
+            $manager->persist($review);
         }
 
         $personsList = [];
@@ -99,7 +130,35 @@ class AppFixtures extends Fixture
 
             $manager->persist($casting);
         }
-               
+
+        $departmentsList = [];
+
+        // 20 departments
+        for ($i = 1; $i <= 20; $i++) {
+
+            $department = new Department();
+            $department->setName($faker->movieDepartmentName());
+            $department->setCreatedAt(new DateTime());
+
+            $departmentsList[] = $department;
+
+            $manager->persist($department);
+        }
+        
+        // 30 jobs
+        for ($i = 1; $i <= 30; $i++) {
+
+            $job = new Job();
+            $job->setName($faker->movieJobName());
+            $job->setCreatedAt(new DateTime());
+
+            // Variante avec array_rand()
+            $randomDepartment = $departmentsList[array_rand($departmentsList)];
+            $job->setDepartment($randomDepartment);
+
+            $manager->persist($job);
+        }
+                 
         $manager->flush();
     }
     

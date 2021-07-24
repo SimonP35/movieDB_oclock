@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Genre;
 use App\Entity\Movie;
+use App\Repository\GenreRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -24,6 +25,7 @@ class MovieType extends AbstractType
             ])
             ->add('release_date', DateType::class, [
                 'label' => 'Date de sortie ',
+                'widget' => 'single_text', 
             ])
             ->add('duration', NumberType::class, [
                 'label' => 'Durée en min',
@@ -46,7 +48,12 @@ class MovieType extends AbstractType
             ])
             ->add('genres', EntityType::class, [
                 'class' => Genre::class,
-                'label' => 'Sélection des genres ',
+                'query_builder' => function (GenreRepository $gr) {
+                    return $gr->createQueryBuilder('g')
+                        ->orderBy('g.name', 'ASC');
+                },
+                'label' => 'Sélection des genres',
+                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
             ])

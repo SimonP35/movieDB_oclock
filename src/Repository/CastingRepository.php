@@ -82,4 +82,19 @@ class CastingRepository extends ServiceEntityRepository
         ->getQuery()
         ->getResult();
     }
+
+    /**
+     * @return Casting[]
+     */
+    public function findAllJoinedToPersonToMovieOrderByIdQB(): ?array
+    {
+        return $this->createQueryBuilder('c')
+        ->addSelect('p', 'm')
+        ->innerJoin('c.person', 'p')
+        ->innerJoin('c.movie', 'm')
+        ->orderBy('c.id', 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+
 }

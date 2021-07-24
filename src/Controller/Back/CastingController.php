@@ -2,9 +2,7 @@
 
 namespace App\Controller\Back;
 
-use DateTime;
 use App\Entity\Casting;
-use App\Form\MovieType;
 use App\Form\CastingType;
 use App\Repository\CastingRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,11 +19,7 @@ class CastingController extends AbstractController
      */
     public function list(CastingRepository $castingRepository): Response
     {
-        $castings = $castingRepository->findAll();
-
-        //? Queries Customs (Repository)
-        // $movies = $movieRepository->findAllOrderByTitleAscQB();
-        // $movies = $movieRepository->findAllOrderByTitleAscDQL();
+        $castings = $castingRepository->findAllJoinedToPersonToMovieOrderByIdQB();
 
         dump($castings);
 
@@ -55,9 +49,9 @@ class CastingController extends AbstractController
 
             // dd($casting);
 
-            $this->addFlash('success', 'Le film n°' . $casting->getId() . ' a bien été ajouté !');
+            $this->addFlash('success', 'Le casting n°' . $casting->getId() . ' a bien été ajouté !');
 
-            return $this->redirectToRoute('back_movie_list');
+            return $this->redirectToRoute('back_casting_list');
         }
 
         return $this->render('back/casting/add.html.twig', ['form' => $form->createView()]);
@@ -70,8 +64,8 @@ class CastingController extends AbstractController
      */
     public function edit(Casting $casting = null, Request $request): Response
     {
-        if (null === $casting) {
-            throw $this->createNotFoundException('Film non trouvé.');
+        if ($casting === null) {
+            throw $this->createNotFoundException('Casting non trouvé.');
         }
 
         $form = $this->createForm(CastingType::class, $casting);
@@ -79,9 +73,6 @@ class CastingController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $casting
-            ->setUpdatedAt(new DateTime());
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($casting);
@@ -91,7 +82,7 @@ class CastingController extends AbstractController
 
             $this->addFlash('success', 'Le casting n°' . $casting->getId() . ' a bien été modifié !');
 
-            return $this->redirectToRoute('back_movie_edit', [ 'id' => $casting->getId() ]);
+            return $this->redirectToRoute('back_casting_edit', [ 'id' => $casting->getId() ]);
         }
 
         return $this->render('back/casting/edit.html.twig', ['form' => $form->createView()]);
@@ -103,8 +94,8 @@ class CastingController extends AbstractController
      */
     public function delete(Casting $casting = null, EntityManagerInterface $entityManager): Response
     {
-        if (null === $casting) {
-            throw $this->createNotFoundException('Article non trouvé.');
+        if ($casting === null) {
+            throw $this->createNotFoundException('Casting non trouvé.');
         }
 
         $entityManager->remove($casting);

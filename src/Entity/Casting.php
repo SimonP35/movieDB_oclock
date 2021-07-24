@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CastingRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=CastingRepository::class)
+ * @ORM\Entity(repositoryClass=App\Repository\CastingRepository::class)
  */
 class Casting
 {
@@ -19,17 +19,28 @@ class Casting
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\NotBlank
+     * @Assert\Length(min = 2, max = 100)
+     * 
      */
     private $role;
 
     /**
      * @ORM\Column(type="smallint")
+     * 
+     * @Assert\NotBlank
+     * @Assert\Type("int") 
+     * @Assert\Length(max = 2)
+     * @Assert\Choice({10, 9, 8, 7, 6, 5, 4, 3, 2, 1}) 
+     * 
      */
     private $credit_order;
 
     /**
      * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="castings")
      * @ORM\JoinColumn(nullable=false)
+     * 
      */
     private $person;
 

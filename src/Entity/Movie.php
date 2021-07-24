@@ -33,7 +33,7 @@ class Movie
      * @ORM\Column(type="string", length=211)
      * 
      * @Assert\NotBlank
-     * @Assert\Length(min = 2, max = 100)
+     * @Assert\Length(max = 100)
      * 
      */
     private $title;
@@ -54,11 +54,14 @@ class Movie
 
     /**
      * @ORM\ManyToMany(targetEntity=Genre::class, inversedBy="movies")
+     * 
+     * @Assert\Count(min=1)
+     * 
      */
     private $genres;
 
     /**
-     * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="movie")
+     * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="movie", cascade={"remove"})
      */
     private $castings;
 
@@ -74,8 +77,8 @@ class Movie
      * @ORM\Column(type="integer")
      * 
      * @Assert\NotBlank
-     * @Assert\Type("int") 
-     * @Assert\Length(min = 2, max = 3)
+     * @Assert\Positive
+     * @Assert\LessThanOrEqual(1440)
      * 
      */
     private $duration;
@@ -107,7 +110,6 @@ class Movie
 
     public function __toString()
     {
-        // Retournons le prénom et le nom
         return $this->title;
     }
 

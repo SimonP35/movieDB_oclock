@@ -2,19 +2,15 @@
 
 {% block title %}Add Movies Here{% endblock %}
 
+{% block Movies %}active{% endblock %}
+
 {% block body %}
 
 <div class="container">
 
 <h1>Add Movies Here</h1>
 
-{{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
-
-    {{ form_widget(form) }}
-
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
-
-{{ form_start(form) }}
+{% include "back/include/_form.html.twig" %}
 
 </div>
 

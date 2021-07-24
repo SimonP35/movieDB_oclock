@@ -72,7 +72,7 @@ class MovieController extends AbstractController
      */
     public function edit(Movie $movie = null, Request $request): Response
     {
-        if (null === $movie) {
+        if ($movie === null) {
             throw $this->createNotFoundException('Film non trouvé.');
         }
 
@@ -105,7 +105,7 @@ class MovieController extends AbstractController
      */
     public function delete(Movie $movie = null, EntityManagerInterface $entityManager): Response
     {
-        if (null === $movie) {
+        if ($movie === null) {
             throw $this->createNotFoundException('Article non trouvé.');
         }
 
