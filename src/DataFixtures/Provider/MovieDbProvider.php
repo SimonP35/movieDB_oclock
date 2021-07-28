@@ -539,6 +539,11 @@ class MovieDbProvider
         'dream',
     ];
 
+    private $roles = [
+        'ROLE_USER',
+        'ROLE_MANAGER',
+        'ROLE_ADMIN',
+    ];
 
     /**
      * Retourne un genre au hasard
@@ -578,6 +583,14 @@ class MovieDbProvider
     public function reactionName()
     {
         return $this->reactions[array_rand($this->reactions)];
+    }
+
+    /**
+     * Retourne un role au hasard
+     */
+    public function roleName()
+    {
+        return $this->roles[array_rand($this->roles)];
     }
 
 }

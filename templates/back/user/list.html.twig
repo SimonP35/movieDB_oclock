@@ -1,24 +1,23 @@
 {% extends 'back/base.html.twig' %}
 
-{% block title %}Jobs List{% endblock %}
+{% block title %}Users List{% endblock %}
+
+{% block Users %}active{% endblock %}
 
 {% block body %}
 
 	<div class="container mb-auto">
 	<div class="row d-flex">
-		<div class="col-11"><h1>Liste des Jobs</h1></div>
-		{% if is_granted('ROLE_ADMIN') %}
-		<div class="col-1 d-flex align-items-center"><a href="{{ path('back_job_add') }}" class="btn btn-success">Ajouter</a></div>
-		{% endif %}
+		<div class="col-11"><h1>Liste des Utilisateurs</h1></div>
+		<div class="col-1 d-flex align-items-center"><a href="{{ path('back_user_add') }}" class="btn btn-success">Ajouter</a></div>
 	</div>
 		<table class="table">
 			<thead>
 				<tr>
 					<th scope="col">#</th>
-					<th scope="col">Name</th>
-					<th scope="col">department</th>
-					<th scope="col">createdAt</th>
-					<th scope="col">updatedAt</th>
+					<th scope="col">E-mail</th>
+					<th scope="col">Mot de passe</th>
+					<th scope="col">Roles</th>
 					{% if is_granted('ROLE_ADMIN') %}
 					<th scope="col"></th>
 					<th scope="col"></th>
@@ -26,23 +25,26 @@
 				</tr>
 			</thead>
 
-			{% for job in jobs %}
+			{% for user in users %}
 				<tbody>
 					<tr>
-						<th scope="row">{{ job.id }}</th>
-						<td>{{ job.name }}</td>
-						<td>{{ job.department }}</td>
-						<td>{{ job.createdAt|date("m/d/Y H : i") }}</td>
-						<td>{{ job.updatedAt|date("m/d/Y H : i") }}</td>
+						<th scope="row">{{ user.id }}</th>
+						<td>{{ user.email }}</td>
+						<td>{{ user.password }} min</td>
+						<td><ul>
+							{% for role in user.roles %}
+								<li>{{ role }}</li>
+							{% endfor %}
+						</td></ul>
 						{% if is_granted('ROLE_ADMIN') %}
-						<form action="{{ path('back_job_edit', {id: job.id}) }}" method="get">
+						<form action="{{ path('back_user_edit', {id: user.id} ) }}" method="get">
                         <td>
 							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								<button type="submit" class="btn btn-success edit"><i class="far fa-edit"></i></i></button>
 							</div>
 						</td>
 						</form>
-						<form action="{{ path('back_job_delete', {id: job.id}) }}" method="get">
+						<form action="{{ path('back_user_delete', {id: user.id} ) }}" method="get">
 						<td>
 							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
 								<button type="submit" class="btn btn-danger delete"><i class="far fa-trash-alt"></i></button>

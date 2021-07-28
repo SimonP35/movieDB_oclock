@@ -8,9 +8,9 @@ use App\Repository\MovieRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\BrowserKit\Request;
 
 /**
- * Contrôleur en mode "sandbox" (bac à sable, on joue ;))
  * 
  * Browse => Liste les enregistrements
  * Read => lit un enregistrement

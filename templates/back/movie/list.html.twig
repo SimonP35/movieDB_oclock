@@ -9,7 +9,9 @@
 	<div class="container mb-auto">
 	<div class="row d-flex">
 		<div class="col-11"><h1>Liste des Films</h1></div>
+		{% if is_granted('ROLE_ADMIN') %}
 		<div class="col-1 d-flex align-items-center"><a href="{{ path('back_movie_add') }}" class="btn btn-success">Ajouter</a></div>
+		{% endif %}
 	</div>
 		<table class="table">
 			<thead>
@@ -22,8 +24,10 @@
 					<th scope="col">updatedAt</th>
 					<th scope="col">poster</th>
 					<th scope="col">rating</th>
+					{% if is_granted('ROLE_ADMIN') %}
 					<th scope="col"></th>
 					<th scope="col"></th>
+					{% endif %}
 				</tr>
 			</thead>
 
@@ -38,7 +42,7 @@
 						<td>{{ movie.updatedAt|date("m/d/Y H : i") }}</td>
 						<td>{{ movie.poster|u.truncate(20) }}</td>
 						<td>{{ movie.rating }}</td>
-
+						{% if is_granted('ROLE_ADMIN') %}
 						<form action="{{ path('back_movie_edit', {id: movie.id}) }}" method="get">
                         <td>
 							<div class="btn-group" role="group" aria-label="Basic mixed styles example">
@@ -53,6 +57,7 @@
 							</div>
 						</td>
 						</form>
+						{% endif %}
 					</tr>
 				</tbody>
 			{% endfor %}

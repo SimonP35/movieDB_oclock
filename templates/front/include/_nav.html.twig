@@ -3,16 +3,60 @@
 		<div class="col-10">
 			<ul class="nav nav-pills ms-3">
 				<li class="nav-item">
-					<a class="nav-link text-muted {% block menu_list %}{% endblock %}" href="{{ path('movie_list') }}">Home</a>
+					<a class="nav-link text-muted" href="{{ path('movie_list') }}">Home</a>
 				</li>
 			</ul>
 		</div>
 		<div class="col-2 d-flex flex-row-reverse">
 			<ul class="nav nav-pills">
 				<li class="nav-item">
-			<a class="nav-link" href="{{ path('back_login') }}">Connexion</a>
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<a class="btn btn-danger" href="{{ path('app_logout') }}">Deconnexion</a>
+				{% else %}	
+				<a class="btn btn-success" href="{{ path('app_login') }}">Connexion</a>
+				{% endif %}
 		</li>
 			</ul>
 		</div>
 	</div>
 </nav>
+{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER') %}
+<nav class="dark navbar-dark bg-light container-fluid py-3">
+	<div class="row">
+		<div class="col-6">
+			<ul class="nav nav-pills ms-3">
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block Movies %}{% endblock %}" href="{{ path('back_movie_list') }}">Movies</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block Jobs %}{% endblock %}" href="{{ path('back_job_list') }}">Jobs</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block Castings %}{% endblock %}" href="{{ path('back_casting_list') }}">Castings</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block Person %}{% endblock %}" href="#">Person</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block Department %}{% endblock %}" href="#">Department</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link text-muted {% block Team %}{% endblock %}" href="#">Team</a>
+				</li>
+				<li class="nav-item">
+				{% if is_granted('ROLE_ADMIN') %}
+					<a class="nav-link text-muted {% block Users %}{% endblock %}" href="{{ path('back_user_list') }}">Utilisateur</a>
+				{% endif %}
+				</li>
+			</ul>
+		</div>
+		<div class="col-6 d-flex flex-row-reverse">
+			<ul class="nav nav-pills">
+				<li class="nav-item">
+					<p>Email : {{ app.user.email }} // {% for role in app.user.roles %} Role : {{ role }}{% endfor %}</p>		
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+{% endif %}

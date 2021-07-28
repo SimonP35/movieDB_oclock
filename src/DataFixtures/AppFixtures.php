@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use DateTime;
 use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Job;
 use App\Entity\Genre;
 use App\Entity\Movie;
@@ -14,18 +15,65 @@ use App\Entity\Department;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\MovieDbProvider;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    {
+        $this->passwordHasher = $passwordHasher;
+    }
+
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
 
-        // Si on veut toujours les mêmes données on plante une "graine" (seed)
-        // $faker->seed('datasNameHere');
-
         // Notre fournisseur de données, ajouté à Faker
         $faker->addProvider(new MovieDbProvider());
+
+        // 3 users "en dur" : USER, MANAGER, ADMIN
+        // mot de passe = user, manager, admin
+        $user = new User();
+        $user->setEmail('user@user.com');
+        // user via "bin/console security:hash-password"
+        $user->setPassword('$2y$13$h.eZWrS5PJya7zNMNsKcXe8LUSVBtN2PBy8WHxmdHgAFjHG/rW.dG');
+        $user->setRoles(['ROLE_USER']);
+
+        $userManager = new User();
+        $userManager->setEmail('manager@manager.com');
+        // manager via "bin/console security:hash-password"
+        $userManager->setPassword('$2y$13$3YxSfXMdyaKdplTEd07.SuDnbjAQZIAn8NLbhHzTLUnl1N7oegQg2');
+        $userManager->setRoles(['ROLE_MANAGER']);
+
+        $admin = new User();
+        $admin->setEmail('admin@admin.com');
+        // admin via "bin/console security:hash-password"
+        $admin->setPassword('$2y$13$L81zK/fTjQikyz3PtBmbL.WdDILXR.Ppn.whBAvLJsbaFu4Fu0zVe');
+        $admin->setRoles(['ROLE_ADMIN']);
+
+        $manager->persist($user);
+        $manager->persist($userManager);
+        $manager->persist($admin);
+
+        for ($i = 1; $i <= 15; $i++ ) {
+
+            $rolesList = [];
+            $rolesList[] = $faker->roleName();
+
+            $user = new User();
+            $user
+            ->setEmail($faker->unique->email())
+            ->setPassword($this->passwordHasher->hashPassword(
+                $user,
+                "{$faker->unique->password()}"
+            ))
+            ->setRoles($rolesList);
+    
+            $manager->persist($user);
+    
+        }
 
         // Notre fournisseur de données
         // $movieDbProvider = new MovieDbProvider();
@@ -73,6 +121,8 @@ class AppFixtures extends Fixture
 
         // 100 reviews
         for ($i = 1; $i <= 100; $i++) {
+
+            $reactionList = [];
 
             $nbReactions = mt_rand(0, 5);
 
