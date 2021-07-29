@@ -26,7 +26,7 @@ security:
             custom_authenticator: App\Security\LoginFormAuthenticator
             logout:
                 path: app_logout
-                target: /movie/list
+                target: /
                 # where to redirect after logout
                 # target: app_any_route
 

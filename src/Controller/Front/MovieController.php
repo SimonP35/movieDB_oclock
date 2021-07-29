@@ -21,25 +21,6 @@ use Symfony\Component\BrowserKit\Request;
 class MovieController extends AbstractController
 {
     /**
-     * Page List Movie
-     * @Route("/movie/list", name="movie_list")
-     */
-    public function list(MovieRepository $movieRepository)
-    {
-        $movies = $movieRepository->findAll();
-
-        //? Queries Customs (Repository)
-        // $movies = $movieRepository->findAllOrderByTitleAscQB();
-        // $movies = $movieRepository->findAllOrderByTitleAscDQL();
-
-        // dump($movies);
-
-        return $this->render('front/movie/list.html.twig', [
-             'movies' => $movies 
-        ]);
-    }
-
-    /**
      * Show Movie
      * @Route("/movie/show/{id<\d+>}", name="movie_show")
      */

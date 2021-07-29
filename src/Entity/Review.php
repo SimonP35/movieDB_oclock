@@ -72,6 +72,11 @@ class Review
      */
     private $movie;
 
+    /**
+     * @ORM\Column(type="datetime", options={"default" : "CURRENT_TIMESTAMP"})
+     */
+    private $publishedAt;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -157,6 +162,18 @@ class Review
     public function setMovie(?Movie $movie): self
     {
         $this->movie = $movie;
+
+        return $this;
+    }
+
+    public function getPublishedAt(): ?\DateTimeInterface
+    {
+        return $this->publishedAt;
+    }
+
+    public function setPublishedAt(\DateTimeInterface $publishedAt): self
+    {
+        $this->publishedAt = $publishedAt;
 
         return $this;
     }

@@ -1,0 +1,38 @@
+
+{# Fragment utilisé sur la home et sur la page film #}
+
+<div class="row movie-main">
+
+    {# Poster du film #}
+
+    <div class="col-4">
+        <a href="{{ path('movie_show', { 'id': movie.id }) }}">
+            <img src="{{ asset('default-movie.jpg') }}" class="img-fluid">
+        </a>
+    </div>
+
+    {# Infos résumées du film #}
+
+    <div class="col-8">
+
+        {# Titre #}
+        <p><a href="{{ path('movie_show', { 'id': movie.id }) }}" class="title">{{ movie.title }}</a></p>
+
+        {# Genres #}
+        <p>{% for genre in movie.genres %}{{ genre.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+
+        {# Casting #}
+        <p>Avec {% for casting in movie.castings %}<a href="#">{{ casting.person.firstname }} {{ casting.person.lastname }}</a>{% if not loop.last %}, {% endif %}{% endfor %}{% if displaySummary is not defined %} <a href="#casting"><u>plus</u></a>{% endif %}</p>
+
+        {# Résume #}
+        {% if displaySummary is defined %}
+        <p class="summary"><i>Ici le résumé du film.</i></p>
+        {% endif %}
+
+        {# Note sur 5 #}
+        {% set score = 3.5 %}
+        <p class="score"><img src="{{ asset('css/stars.png')}}" style="background-position-x: -{{ 100 - 100 / 5 * score }}px">{{ score }}</p>
+
+    </div>
+</div>
+<hr>

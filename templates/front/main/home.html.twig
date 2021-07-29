@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block breadcrumb %}Accueil > Tous les films{% endblock %}
+
+{% block body %}
+
+<h1>Tous les films</h1>
+
+<h2 id="header-margin">Retrouvez les films recensés sur Allociné, à voir ou à revoir, seul, en famille ou entre amis.</h2>
+
+<div class="row">
+
+    {# Liste des genres #}
+    <div class="col-2" id="genres">
+        <h3>Par genres</h3>
+        {% for genre in genres %}
+            <div>{{ genre.name }}</div>
+        {% endfor %}
+    </div>
+
+    {# Liste des films #}
+    <div class="col-10">
+
+        {% if app.request.query.get('search') is not null %}
+            <h3>Résultats de la recherche pour <i>"{{ app.request.query.get('search') }}"</i></h3>
+        {% endif %}
+
+        {% for movie in movies %}
+        {% include 'front/include/_movie_main.html.twig' with { 'displaySummary': true } %}
+        {% else %}
+        <p>Aucun film trouvé.</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

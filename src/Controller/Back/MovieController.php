@@ -55,9 +55,15 @@ class MovieController extends AbstractController
             $manager->persist($movie);
             $manager->flush();
 
-            // dd($movie);
+            $messages = [
+                'You did it! You updated the system! Amazing!',
+                'That was one of the coolest updates I\'ve seen all day!',
+                'Great work! Keep going!',
+            ];
 
-            $this->addFlash('success', 'Le film ' . $movie->getTitle() . ' a bien été ajouté !');
+            $this->addFlash('success', $messages[array_rand($messages)]);
+
+            // $this->addFlash('success', 'Le film ' . $movie->getTitle() . ' a bien été ajouté !');
 
             return $this->redirectToRoute('back_movie_list');
         }
