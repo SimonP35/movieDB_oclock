@@ -15,7 +15,7 @@ class ReviewController extends AbstractController
     /**
      *
      * Add Review
-     * @Route("/review/add/{id<\d+>}", name="add_review", methods={"GET", "POST"})
+     * @Route("/review/add/{slug}", name="add_review", methods={"GET", "POST"})
      */
     public function add(Movie $movie = null, Request $request): Response
     {
@@ -40,7 +40,7 @@ class ReviewController extends AbstractController
 
             // $this->addFlash('success', 'Votre commentaire a bien été ajouté !');
 
-            return $this->redirectToRoute('movie_show', ['id' => $movie->getId()]);
+            return $this->redirectToRoute('movie_show', ['slug' => $movie->getSlug()]);
         }
 
         return $this->render('front/review/form.html.twig', [ 'movie' => $movie, 'form' => $form->createView()]);

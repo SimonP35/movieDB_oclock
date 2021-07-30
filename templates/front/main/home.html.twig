@@ -6,7 +6,7 @@
 
 <h1>Tous les films</h1>
 
-<h2 id="header-margin">Retrouvez les films recensés sur Allociné, à voir ou à revoir, seul, en famille ou entre amis.</h2>
+<h2 id="header-margin">Retrouvez les films recensés sur oZ'iné, à voir ou à revoir, seul, en famille ou entre amis.</h2>
 
 <div class="row">
 
@@ -14,7 +14,7 @@
     <div class="col-2" id="genres">
         <h3>Par genres</h3>
         {% for genre in genres %}
-            <div>{{ genre.name }}</div>
+            <div><a href="{{ path('genre_show', {slug: genre.slug }) }}">{{ genre.name }}</a></div>
         {% endfor %}
     </div>
 

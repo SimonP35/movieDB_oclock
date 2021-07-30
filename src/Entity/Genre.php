@@ -28,6 +28,11 @@ class Genre
      */
     private $movies;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __toString()
     {
         // Retournons le prénom et le nom
@@ -79,6 +84,18 @@ class Genre
         if ($this->movies->removeElement($movie)) {
             $movie->removeGenre($this);
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

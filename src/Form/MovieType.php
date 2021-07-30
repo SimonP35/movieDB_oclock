@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class MovieType extends AbstractType
 {
@@ -22,6 +23,9 @@ class MovieType extends AbstractType
         $builder
             ->add('title', TextType::class, [
                 'label' => 'Titre',
+            ])
+            ->add('synopsis', TextareaType::class, [
+                'label' => 'Synopsis',
             ])
             ->add('release_date', DateType::class, [
                 'label' => 'Date de sortie ',

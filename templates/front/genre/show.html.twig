@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ genre.name }}{% endblock %}
+
+{% block bodyid %}id="show"{% endblock %}
+
+{% block breadcrumb %}<a href="{{ path('home') }}">Accueil</a> > {{ genre.name }}{% endblock %}
+
+{% block body %}
+
+<div id="show">
+
+{% for movie in genre.movies %}
+
+    <h1 id="header-margin">{{ movie.title }}</h1>
+
+    {% include 'front/include/_movie_main.html.twig' %}
+
+    <h2>Synopsis et détails</h2>
+    <p><i>{{ movie.synopsis }}</i></p>
+    <p class="infos"><label>Date de sortie :</label>{{ movie.releaseDate|date("m/d/Y") }}</p>
+
+    <hr>
+
+</div>
+
+{% endfor %}
+
+{% endblock %}

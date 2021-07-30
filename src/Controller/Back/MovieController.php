@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Movie;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
+use App\Service\SlugService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +39,7 @@ class MovieController extends AbstractController
      * Add Movie
      * @Route("back/movie/add", name="back_movie_add", methods={"GET", "POST"})
      */
-    public function add(Request $request): Response
+    public function add(Request $request, SlugService $slugService): Response
     {
         $movie = new Movie();
 
@@ -49,7 +50,9 @@ class MovieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $movie
-            ->setCreatedAt(new DateTime());
+            ->setCreatedAt(new DateTime())
+            // Fonctionne avec la mise en place de la méthode __toString()
+            ->setSlug($slugService->toSlug($movie));
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($movie);
@@ -76,7 +79,7 @@ class MovieController extends AbstractController
      * Add Movie
      * @Route("back/movie/edit/{id<\d+>}", name="back_movie_edit", methods={"GET", "POST"})
      */
-    public function edit(Movie $movie = null, Request $request): Response
+    public function edit(Movie $movie = null, Request $request, SlugService $slugService): Response
     {
         if ($movie === null) {
             throw $this->createNotFoundException('Film non trouvé.');
@@ -89,7 +92,9 @@ class MovieController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             
             $movie
-            ->setUpdatedAt(new DateTime());
+            ->setUpdatedAt(new DateTime())
+            // Fonctionne avec la mise en place de la méthode __toString()
+            ->setSlug($slugService->toSlug($movie));
 
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($movie);

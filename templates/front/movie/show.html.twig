@@ -15,7 +15,7 @@
     {% include 'front/include/_movie_main.html.twig' %}
 
     <h2>Synopsis et détails</h2>
-    <p><i>Ici le synopsis du film</i></p>
+    <p><i>{{ movie.synopsis }}</i></p>
     <p class="infos"><label>Date de sortie :</label>{{ movie.releaseDate|date("m/d/Y") }}</p>
 
     <h2 id="casting">Acteurs et actrices</h2>
@@ -37,7 +37,7 @@
 
     <h2>Critiques</h2>
 
-    <p><a href="{{ path('add_review', {id: movie.id }) }}" class="btn btn-primary">Ajouter une critique</a></p>
+    <p><a href="{{ path('add_review', {slug: movie.slug }) }}" class="btn btn-primary">Ajouter une critique</a></p>
 
     {% for review in movie.reviews %}
     <div>

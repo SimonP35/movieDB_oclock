@@ -24,6 +24,7 @@
 					<th scope="col">updatedAt</th>
 					<th scope="col">poster</th>
 					<th scope="col">rating</th>
+					<th scope="col">slug</th>
 					{% if is_granted('ROLE_ADMIN') %}
 					<th scope="col"></th>
 					<th scope="col"></th>
@@ -42,6 +43,7 @@
 						<td>{{ movie.updatedAt|date("m/d/Y H : i") }}</td>
 						<td>{{ movie.poster|u.truncate(20) }}</td>
 						<td>{{ movie.rating }}</td>
+						<td>{{ movie.slug }}</td>
 						{% if is_granted('ROLE_ADMIN') %}
 						<form action="{{ path('back_movie_edit', {id: movie.id}) }}" method="get">
                         <td>

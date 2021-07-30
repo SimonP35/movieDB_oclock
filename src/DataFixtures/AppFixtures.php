@@ -4,8 +4,8 @@ namespace App\DataFixtures;
 
 use DateTime;
 use Faker\Factory;
-use App\Entity\User;
 use App\Entity\Job;
+use App\Entity\User;
 use App\Entity\Genre;
 use App\Entity\Movie;
 use App\Entity\Person;
@@ -16,14 +16,19 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\MovieDbProvider;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use App\Service\SlugService;
+
 
 class AppFixtures extends Fixture
 {
     private $passwordHasher;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    private $slugService;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher, SlugService $slugService)
     {
         $this->passwordHasher = $passwordHasher;
+        $this->slugService = $slugService;
     }
 
     public function load(ObjectManager $manager)
@@ -66,8 +71,7 @@ class AppFixtures extends Fixture
             $user
             ->setEmail($faker->unique->email())
             ->setPassword($this->passwordHasher->hashPassword(
-                $user,
-                "{$faker->unique->password()}"
+                $user, $faker->unique->password()
             ))
             ->setRoles($rolesList);
     
@@ -84,7 +88,9 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 20; $i++) {
 
             $genre = new Genre();
-            $genre->setName($faker->unique->movieGenre());
+            $genre
+            ->setName($faker->unique->movieGenre())
+            ->setSlug($this->slugService->toSlug($genre->getName()));;
 
             $genresList[] = $genre;
 
@@ -99,12 +105,16 @@ class AppFixtures extends Fixture
             $nbGenres = mt_rand(1, 3);
 
             $movie = new Movie();
-            $movie->setTitle($faker->unique->movieTitle());
-            $movie->setCreatedAt(new DateTime());
-            $movie->setDuration($faker->numberBetween(90, 220));
-            $movie->setPoster($faker->imageUrl(300, 400));
-            $movie->setRating($faker->numberBetween(1, 5));
-            $movie->setReleaseDate($faker->dateTimeBetween());
+
+            $movie
+            ->setTitle($faker->unique->movieTitle())
+            ->setCreatedAt(new DateTime())
+            ->setDuration($faker->numberBetween(90, 220))
+            ->setPoster($faker->imageUrl(300, 400))
+            ->setRating($faker->numberBetween(1, 5))
+            ->setReleaseDate($faker->dateTimeBetween())
+            ->setSynopsis($faker->text(350))
+            ->setSlug($this->slugService->toSlug($movie->getTitle()));
 
             // Association de 1 à 3 genres au hasard
             for ($index = 1; $index <= $nbGenres; $index++) {
@@ -127,10 +137,14 @@ class AppFixtures extends Fixture
             $nbReactions = mt_rand(0, 5);
 
             $review = new Review();
-            $review->setUsername($faker->name());
-            $review->setEmail($faker->email());
-            $review->setContent($faker->paragraph());
-            $review->setRating($faker->numberBetween(1, 5));
+
+            $review
+            ->setUsername($faker->name())
+            ->setEmail($faker->email())
+            ->setContent($faker->paragraph())
+            ->setRating($faker->numberBetween(1, 5))
+            ->setPublishedAt(new DateTime())
+            ->setWatchedAt($faker->dateTimeBetween());
 
             // Association de 0 à 5 reactions au hasard
             for ($index = 1; $index <= $nbReactions; $index++) {
@@ -144,8 +158,6 @@ class AppFixtures extends Fixture
 
             $review->setMovie($moviesList[array_rand($moviesList)]);
 
-            $review->setWatchedAt($faker->dateTimeBetween());
-
             $manager->persist($review);
         }
 
@@ -155,8 +167,9 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 30; $i++) {
 
             $person = new Person();
-            $person->setFirstname($faker->firstname());
-            $person->setLastname($faker->unique->lastname());
+            $person
+            ->setFirstname($faker->firstname())
+            ->setLastname($faker->unique->lastname());
 
             $personsList[] = $person;
 
@@ -167,8 +180,10 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 100; $i++) {
 
             $casting = new Casting();
-            $casting->setRole($faker->movieJobName());
-            $casting->setCreditOrder($faker->numberBetween(1, 10));
+
+            $casting
+            ->setRole($faker->movieJobName())
+            ->setCreditOrder($faker->numberBetween(1, 10));
 
             // Variante avec mt_rand et count
             $randomMovie = $moviesList[mt_rand(0, count($moviesList) - 1)];
@@ -187,8 +202,10 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 20; $i++) {
 
             $department = new Department();
-            $department->setName($faker->movieDepartmentName());
-            $department->setCreatedAt(new DateTime());
+
+            $department
+            ->setName($faker->movieDepartmentName())
+            ->setCreatedAt(new DateTime());
 
             $departmentsList[] = $department;
 
