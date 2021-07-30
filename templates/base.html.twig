@@ -39,9 +39,11 @@
 					</a>
 				</li>
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('back_movie_list') }}">Back Office</a>
-				</li>
+					{% if (is_granted('ROLE_ADMIN') or is_granted('ROLE_MANAGER')) %}
+					<li class="nav-item">
+						<a class="nav-link" href="{{ path('back_movie_list') }}">Back Office</a>
+					</li>
+					{% endif %}
 				{# nom du rôle du user #}
                 <li class="nav-item">
                     <span class="badge bg-primary mt-2">
