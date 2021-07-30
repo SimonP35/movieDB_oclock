@@ -32,15 +32,29 @@
 		</button>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
+			<ul class="navbar-nav mr-auto align-middle">
 				<li class="nav-item active">
 					<a class="nav-link" href="{{ path('home') }}">Accueil
 						<span class="sr-only">(current)</span>
 					</a>
 				</li>
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 				<li class="nav-item">
-			<a class="nav-link" href="{{ path('back_movie_list') }}">{% if is_granted('IS_AUTHENTICATED_FULLY') %}Back Office{% endif %}</a>
+					<a class="nav-link" href="{{ path('back_movie_list') }}">Back Office</a>
 				</li>
+				{# nom du rôle du user #}
+                <li class="nav-item">
+                    <span class="badge bg-primary mt-2">
+                        {% if is_granted('ROLE_ADMIN') %}
+                        Administrateur
+                        {% elseif is_granted('ROLE_MANAGER') %}
+                        Manager
+                        {% elseif is_granted('ROLE_USER') %}
+                        Utilisateur
+                        {% endif %}
+                    </span>
+                </li>
+				{% endif %}
 			</ul>
 			<form class="form-inline my-2 my-lg-0" action="{{ path('home') }}">
 				<input class="form-control mr-sm-2" type="search" name="search" placeholder="Un titre de film" value="{{ app.request.query.get('search') ?? '' }}" aria-label="Search">

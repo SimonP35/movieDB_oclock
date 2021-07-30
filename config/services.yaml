@@ -27,6 +27,8 @@ services:
         # Arguments à tranmsettre au constructeur
         arguments:
             $toLower: '%TO_LOWER%'
+        # Autre solution possible (sans paramètre de service): 
+            # $toLower: '%env(bool:TO_LOWER)%'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

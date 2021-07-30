@@ -30,7 +30,7 @@ class Movie
     /**
      * Column 'title'
      *
-     * @ORM\Column(type="string", length=211)
+     * @ORM\Column(type="string", length=211, unique=true)
      * 
      * @Assert\NotBlank
      * @Assert\Length(max = 100)
@@ -61,7 +61,7 @@ class Movie
     private $genres;
 
     /**
-     * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="movie", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="movie", cascade={"remove"}, fetch="EAGER")
      */
     private $castings;
 
@@ -84,7 +84,7 @@ class Movie
     private $duration;
 
     /**
-     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="movie")
+     * @ORM\OneToMany(targetEntity=Review::class, mappedBy="movie", fetch="EAGER")
      */
     private $reviews;
 
@@ -109,7 +109,7 @@ class Movie
     private $rating;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $slug;
 

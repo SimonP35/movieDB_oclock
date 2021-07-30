@@ -90,7 +90,8 @@ class AppFixtures extends Fixture
             $genre = new Genre();
             $genre
             ->setName($faker->unique->movieGenre())
-            ->setSlug($this->slugService->toSlug($genre->getName()));;
+            // Fonctionne avec la mise en place de la méthode __toString()
+            ->setSlug($this->slugService->toSlug($genre));;
 
             $genresList[] = $genre;
 
@@ -103,6 +104,7 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 50; $i++) {
 
             $nbGenres = mt_rand(1, 3);
+            $randomImageType = $faker->imageTypesName();
 
             $movie = new Movie();
 
@@ -110,11 +112,12 @@ class AppFixtures extends Fixture
             ->setTitle($faker->unique->movieTitle())
             ->setCreatedAt(new DateTime())
             ->setDuration($faker->numberBetween(90, 220))
-            ->setPoster($faker->imageUrl(300, 400))
+            ->setPoster("http://lorempixel.com/300/400/$randomImageType")
             ->setRating($faker->numberBetween(1, 5))
             ->setReleaseDate($faker->dateTimeBetween())
             ->setSynopsis($faker->text(350))
-            ->setSlug($this->slugService->toSlug($movie->getTitle()));
+            // Fonctionne avec la mise en place de la méthode __toString()
+            ->setSlug($this->slugService->toSlug($movie));
 
             // Association de 1 à 3 genres au hasard
             for ($index = 1; $index <= $nbGenres; $index++) {

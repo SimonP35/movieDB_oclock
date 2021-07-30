@@ -14,7 +14,7 @@
     <div class="col-2" id="genres">
         <h3>Par genres</h3>
         {% for genre in genres %}
-            <div><a href="{{ path('genre_show', {slug: genre.slug }) }}">{{ genre.name }}</a></div>
+            <div><a href="{{ path('genre_show', {slug: genre.slug }) }}">{{ genre.name }} ({{ genre.movies|length }})</a></div>
         {% endfor %}
     </div>
 

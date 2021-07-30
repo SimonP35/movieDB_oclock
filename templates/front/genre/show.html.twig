@@ -1,29 +1,91 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ genre.name }}{% endblock %}
+{% block title %}
+	{{ genre.name }}
+{% endblock %}
 
-{% block bodyid %}id="show"{% endblock %}
+{% block bodyid %}id="show"
+{% endblock %}
 
-{% block breadcrumb %}<a href="{{ path('home') }}">Accueil</a> > {{ genre.name }}{% endblock %}
+{% block breadcrumb %}
+	<a href="{{ path('home') }}">Accueil</a>
+	>
+	{{ genre.name }}
+{% endblock %}
 
 {% block body %}
 
-<div id="show">
+	<div id="show">
 
-{% for movie in genre.movies %}
+        <h1 id="header-margin">{{ genre.name }}</h1>
 
-    <h1 id="header-margin">{{ movie.title }}</h1>
+    <div class="row movie-main">
 
-    {% include 'front/include/_movie_main.html.twig' %}
+		{% for movie in genre.movies %}
 
-    <h2>Synopsis et détails</h2>
-    <p><i>{{ movie.synopsis }}</i></p>
-    <p class="infos"><label>Date de sortie :</label>{{ movie.releaseDate|date("m/d/Y") }}</p>
+			<div class="col-6 mb-5">
 
-    <hr>
+					{# Poster du film #}
 
+                    <div class="row">
+
+					<div class="col-6">
+						<a href="{{ path('movie_show', {slug: movie.slug }) }}">
+							<img src="{{ movie.poster }}" class="img-fluid">
+						</a>
+					</div>
+
+					{# Infos résumées du film #}
+
+					<div class="col-6">
+
+						{# Titre #}
+						<p>
+							<a href="{{ path('movie_show', {slug: movie.slug }) }}" class="title">{{ movie.title }}</a>
+						</p>
+
+						{# Genres #}
+						<p>
+							{% for genre in movie.genres %}
+								{{ genre.name }}
+								{% if not loop.last %},
+								{% endif %}
+							{% endfor %}
+						</p>
+
+						{# Casting #}
+						<p>Avec
+							{% for casting in movie.castings %}
+								<a href="#">{{ casting.person.firstname }}
+									{{ casting.person.lastname }}</a>
+								{% if not loop.last %},
+								{% endif %}
+							{% endfor %}
+							{% if displaySummary is not defined %}
+								<a href="#casting">
+									<u>plus</u>
+								</a>
+							{% endif %}
+						</p>
+
+						{# Résume #}
+						{% if displaySummary is defined %}
+							<p class="summary">
+								<i>{{ movie.synopsis }}</i>
+							</p>
+						{% endif %}
+
+						{# Note sur 5 #}
+						{% set score = movie.rating %}
+						<p class="score"><img src="{{ asset('css/stars.png')}}" style="background-position-x: -{{ 100 - 100 / 5 * score }}px">{{ score }}</p>
+
+					</div>
+                    </div>
+				</div>
+
+		{% endfor %}
+
+	</div>
 </div>
-
-{% endfor %}
 
 {% endblock %}

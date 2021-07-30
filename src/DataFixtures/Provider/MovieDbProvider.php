@@ -545,6 +545,23 @@ class MovieDbProvider
         'ROLE_ADMIN',
     ];
 
+    private $imageTypes = [
+        "abstract",
+        "animals",
+        "business",
+        "cats",
+        "city",
+        "food",
+        "nightlife",
+        "fashion",
+        "people",
+        "nature",
+        "sports",
+        "technics",
+        "transport"
+    ];
+
+
     /**
      * Retourne un genre au hasard
      */
@@ -593,4 +610,12 @@ class MovieDbProvider
         return $this->roles[array_rand($this->roles)];
     }
 
+
+    /**
+     * Retourne un type d'image au hasard
+     */
+    public function imageTypesName()
+    {
+        return $this->imageTypes[array_rand($this->imageTypes)];
+    }
 }
