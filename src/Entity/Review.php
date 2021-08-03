@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ReviewRepository::class)
@@ -21,7 +22,7 @@ class Review
      * @ORM\Column(type="string", length=50)
      * 
      * @Assert\NotBlank
-     *
+     * @Groups({"movies_get"})
      */
     private $username;
 
@@ -30,7 +31,7 @@ class Review
      *     
      * @Assert\NotBlank
      * @Assert\Email
-     * 
+     * @Groups({"movies_get"})
      */
     private $email;
 
@@ -39,7 +40,7 @@ class Review
      * 
      * @Assert\NotBlank
      * @Assert\Length(min = 100)
-     * 
+     * @Groups({"movies_get"})
      */
     private $content;
 
@@ -48,7 +49,7 @@ class Review
      * 
      * @Assert\NotBlank
      * @Assert\Choice({5, 4, 3, 2, 1}) 
-     * 
+     * @Groups({"movies_get"})
      */
     private $rating;
 
@@ -57,13 +58,13 @@ class Review
      * 
      * @Assert\NotBlank
      * @Assert\Choice({"smile", "cry", "think", "sleep", "dream"}, multiple=true) 
-     * 
+     * @Groups({"movies_get"})
      */
     private $reactions = [];
 
     /**
      * @ORM\Column(type="datetime")
-     * 
+     * @Groups({"movies_get"})
      */
     private $watchedAt;
 
@@ -74,6 +75,7 @@ class Review
 
     /**
      * @ORM\Column(type="datetime", options={"default" : "CURRENT_TIMESTAMP"})
+     * @Groups({"movies_get"})
      */
     private $publishedAt;
 

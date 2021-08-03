@@ -5,3 +5,15 @@
     <button type="submit" class="btn btn-primary">Enregistrer</button>
 
 {{ form_start(form) }}
+
+{# Pour décomposer les champs du formulaire #}
+
+{# {{ form_start(form, { attr:{ novalidate: 'novalidate' }}) }}
+
+    {{ form_row(form.email) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.roles) }}
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+
+{{ form_end(form) }} #}

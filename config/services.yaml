@@ -32,8 +32,15 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
-    App\EventListener\CreateMovieSlug:
+    App\EventListener\MovieListener:
         tags:
+        -
             name: 'doctrine.orm.entity_listener'
-            event: 'prePersist, preUpdate'
+            event: 'prePersist'
             entity: 'App\Entity\Movie'
+            method: 'toSlug'
+        -
+            name: 'doctrine.orm.entity_listener'
+            event: 'preUpdate'
+            entity: 'App\Entity\Movie'
+            method: 'toSlug'

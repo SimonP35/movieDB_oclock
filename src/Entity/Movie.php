@@ -8,13 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Table 'movie'
  * @UniqueEntity("title")
  * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity
- * @ORM\EntityListeners({"App\EventListener\CreateMovieSlug"})
+ * @ORM\EntityListeners({"App\EventListener\MovieListener"})
  */
 class Movie 
 {
@@ -27,6 +28,7 @@ class Movie
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"movies_get"})
      */
     private $id;
 
@@ -37,7 +39,7 @@ class Movie
      * 
      * @Assert\NotBlank
      * @Assert\Length(max = 100)
-     * 
+     * @Groups({"movies_get"})
      */
     private $title;
 
@@ -59,12 +61,13 @@ class Movie
      * @ORM\ManyToMany(targetEntity=Genre::class, inversedBy="movies")
      * 
      * @Assert\Count(min=1)
-     * 
+     * @Groups({"movies_get"})
      */
     private $genres;
 
     /**
      * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="movie", cascade={"remove"}, fetch="EAGER")
+     * @Groups({"movies_get"})     * 
      */
     private $castings;
 
@@ -72,7 +75,7 @@ class Movie
      * @ORM\Column(type="datetime")
      * 
      * @Assert\NotBlank
-     * 
+     * @Groups({"movies_get"})
      */
     private $release_date;
 
@@ -82,12 +85,13 @@ class Movie
      * @Assert\NotBlank
      * @Assert\Positive
      * @Assert\LessThanOrEqual(1440)
-     * 
+     * @Groups({"movies_get"})
      */
     private $duration;
 
     /**
      * @ORM\OneToMany(targetEntity=Review::class, mappedBy="movie", fetch="EAGER")
+     * @Groups({"movies_get"})
      */
     private $reviews;
 
@@ -96,7 +100,7 @@ class Movie
      * 
      * @Assert\NotBlank
      * @Assert\Url
-     * 
+     * @Groups({"movies_get"})
      */
     private $poster;
 
@@ -107,7 +111,7 @@ class Movie
      * @Assert\Type("int") 
      * @Assert\Length(max = 1)
      * @Assert\Choice({5, 4, 3, 2, 1}) 
-     * 
+     * @Groups({"movies_get"})
      */
     private $rating;
 
@@ -118,6 +122,7 @@ class Movie
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"movies_get"})
      */
     private $Synopsis;
 
@@ -340,36 +345,6 @@ class Movie
         return $this;
     }
 
-    /**
-     * @return Collection|Team[]
-     */
-    public function getTeams(): Collection
-    {
-        return $this->teams;
-    }
-
-    public function addTeam(Team $team): self
-    {
-        if (!$this->teams->contains($team)) {
-            $this->teams[] = $team;
-            $team->setMovie($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTeam(Team $team): self
-    {
-        if ($this->teams->removeElement($team)) {
-            // set the owning side to null (unless already changed)
-            if ($team->getMovie() === $this) {
-                $team->setMovie(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -393,4 +368,15 @@ class Movie
 
         return $this;
     }
+
+    //? Correction Cours :
+
+    // /**
+    //  * Exécute cette méthode avant l'update de l'entité en BDD
+    //  * @ORM\PreUpdate
+    //  */
+    // public function setUpdatedAtValue()
+    // {
+    //     $this->updatedAt = new DateTime();
+    // }
 }

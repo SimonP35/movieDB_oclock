@@ -45,9 +45,6 @@ class RandomMovieSubscriber implements EventSubscriberInterface
             return;
         }
 
-        dump('Pouet !!');
-        dump($event);
-
         // 2. On va chercher un film au hasard
         // @todo Utiliser ORDER BY RAND() LIMIT 1
         // dans une requête custom dans le Respository
