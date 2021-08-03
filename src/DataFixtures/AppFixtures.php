@@ -15,6 +15,7 @@ use App\Entity\Department;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use App\DataFixtures\Provider\MovieDbProvider;
+use App\Service\OmdbApi;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Service\SlugService;
 
@@ -25,10 +26,13 @@ class AppFixtures extends Fixture
 
     private $slugService;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher, SlugService $slugService)
+    private $omdbApi;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher, SlugService $slugService, OmdbApi $omdbApi)
     {
         $this->passwordHasher = $passwordHasher;
         $this->slugService = $slugService;
+        $this->omdbApi = $omdbApi;
     }
 
     public function load(ObjectManager $manager)
@@ -104,20 +108,18 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= 50; $i++) {
 
             $nbGenres = mt_rand(1, 3);
-            $randomImageType = $faker->imageTypesName();
+            // $randomImageType = $faker->imageTypesName();
 
             $movie = new Movie();
 
             $movie
             ->setTitle($faker->unique->movieTitle())
-            ->setCreatedAt(new DateTime())
             ->setDuration($faker->numberBetween(90, 220))
-            ->setPoster("http://lorempixel.com/300/400/$randomImageType")
+            ->setPoster($this->omdbApi->fetchPoster($movie))
+            // ->setPoster("http://lorempixel.com/300/400/$randomImageType")
             ->setRating($faker->numberBetween(1, 5))
             ->setReleaseDate($faker->dateTimeBetween())
-            ->setSynopsis($faker->text(350))
-            // Fonctionne avec la mise en place de la méthode __toString()
-            ->setSlug($this->slugService->toSlug($movie));
+            ->setSynopsis($faker->text(350));
 
             // Association de 1 à 3 genres au hasard
             for ($index = 1; $index <= $nbGenres; $index++) {

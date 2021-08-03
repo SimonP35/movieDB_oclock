@@ -88,6 +88,13 @@
 				<hr>
 				<div class="small text-secondary pb-3">Allociné clone made with &hearts; at O'clock !</div>
 			</div>
+
+            {# Widget film au hasard #}
+            {% if randomMovie is defined %}
+            <hr>
+            <p>Un film au hasard : <a href="{{ path('movie_show', {slug: randomMovie.slug}) }}">{{ randomMovie.title }}</a></p>
+            {% endif %}
+			
 		</body>
 
 	</html>

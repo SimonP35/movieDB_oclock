@@ -20,9 +20,8 @@ class SlugService
      * Méthode transformant une string en slug
      * Générique pour différents objets (utilisées en combinaison avec la méthode __toString())
      * 
-     * @return string
      */
-    public function toSlug($object): string
+    public function toSlug($object)
     {
         if ($this->toLower) {
             $slug = $this->slugger->slug($object)->lower();

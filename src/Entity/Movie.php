@@ -12,7 +12,9 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Table 'movie'
  * @UniqueEntity("title")
+ * @ORM\HasLifecycleCallbacks()
  * @ORM\Entity
+ * @ORM\EntityListeners({"App\EventListener\CreateMovieSlug"})
  */
 class Movie 
 {
@@ -176,12 +178,12 @@ class Movie
 
     /**
      * Set column 'created_at'
-     *
+     * @ORM\PrePersist     
      * @return  self
      */ 
-    public function setCreatedAt(DateTime $createdAt)
+    public function setCreatedAt()
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = new DateTime();
 
         return $this;
     }
@@ -196,12 +198,12 @@ class Movie
 
     /**
      * Set column 'updated_at'
-     *
+     * @ORM\PreUpdate     
      * @return  self
      */ 
-    public function setUpdatedAt(DateTime $updatedAt)
+    public function setUpdatedAt()
     {
-        $this->updatedAt = $updatedAt;
+        $this->updatedAt = new DateTime();
 
         return $this;
     }
@@ -373,7 +375,7 @@ class Movie
         return $this->slug;
     }
 
-    public function setSlug(string $slug): self
+    public function setSlug($slug)
     {
         $this->slug = $slug;
 

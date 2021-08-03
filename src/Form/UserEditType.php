@@ -5,14 +5,15 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Validator\Constraints\NotCompromisedPassword;
+use Symfony\Component\Validator\Constraints\Regex;
 
-class UserType extends AbstractType
+class UserEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -34,8 +35,15 @@ class UserType extends AbstractType
                 'type' => PasswordType::class,
                 'invalid_message' => 'Les mots de passe ne correspondent pas.',
                 'required' => true,
+                'mapped' => false,
+                'constraints' => [
+                    new NotCompromisedPassword(),
+                    new Regex('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&-\/])[A-Za-z\d@$!%*#?&-\/]{8,}$/')
+                ],
                 'first_options'  => [
-                    'constraints' => new NotBlank(),
+                    'attr' => [
+                        'placeholder' => "Laisser vide si inchangé...."
+                    ],
                     'label' => 'Mot de passe',
                     'help' => "8 lettres, 1 chiffre et 1 caractère spécial (@$!%*#?&-\)"
                 ],

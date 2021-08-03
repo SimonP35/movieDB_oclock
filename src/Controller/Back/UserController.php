@@ -4,13 +4,14 @@ namespace App\Controller\Back;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserEditType;
 use App\Repository\UserRepository;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 /**
  * Préfixe pour toutes les routes de ce contrôleur 
@@ -77,17 +78,21 @@ class UserController extends AbstractController
             throw $this->createNotFoundException('Utilisateur non trouvé.');
         }
 
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserEditType::class, $user);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
-            $user->setPassword($hashedPassword);
+            // Si le mot de passe du form n'est pas vide
+            // c'est qu'on veut le changer !
+            if ($form->get('password')->getData() != '') {
+                $hashedPassword = $passwordHasher->hashPassword($user, $form->get('password')->getData());
+                $user->setPassword($hashedPassword);
+            }
 
             $manager = $this->getDoctrine()->getManager();
-            $manager->persist($user);
+
             $manager->flush();
 
             // dd($user);
