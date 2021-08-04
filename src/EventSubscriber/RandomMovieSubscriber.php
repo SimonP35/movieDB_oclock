@@ -27,6 +27,10 @@ class RandomMovieSubscriber implements EventSubscriberInterface
     
     public function onKernelController(ControllerEvent $event)
     {
+        if (preg_match('/^\/api/', $event->getRequest()->getPathInfo())) {
+            return;
+        }
+
         // Récupérer le contrôleur
         $controller = $event->getController();
 

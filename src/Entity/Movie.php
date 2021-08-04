@@ -78,7 +78,7 @@ class Movie
      * @Groups({"movies_get"})
      */
     private $release_date;
-
+ 
     /**
      * @ORM\Column(type="integer")
      * 
@@ -176,7 +176,7 @@ class Movie
     /**
      * Get column 'created_at'
      */ 
-    public function getCreatedAt(): DateTime
+    public function getCreatedAt(): ?DateTime
     {
         return $this->createdAt;
     }
