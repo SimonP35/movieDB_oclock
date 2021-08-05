@@ -29,7 +29,8 @@ security:
                 target: /
                 # where to redirect after logout
                 # target: app_any_route
-
+            json_login:
+                check_path: /api/login
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
 
@@ -39,8 +40,13 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+        # Routes API
+        - { path: ^/api/movies, roles: ROLE_ADMIN, methods: POST }
+
+        #Routes Front
         - { path: ^/review/add, roles: ROLE_USER }
 
+        # Routes Back
         - { path: ^/back/login, roles: ROLE_MANAGER }
 
         - { path: ^/back/(movie|job|casting)/list, roles: ROLE_MANAGER }

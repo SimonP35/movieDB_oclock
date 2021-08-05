@@ -38,7 +38,7 @@ class MovieController extends AbstractController
 
             $error = 'Ce film n\'existe pas';
 
-            return $this->json(['error' => $error], Response::HTTP_NOT_FOUND, [], []);
+            return $this->json(['error' => $error], Response::HTTP_NOT_FOUND);
         }
 
         return $this->json(['movie' => $movie], Response::HTTP_OK, [], ['groups' => 'movies_get']);
@@ -76,14 +76,14 @@ class MovieController extends AbstractController
             $errorsString = (string) $errors;
     
             // return new Response($errorsString);
-            return $this->json(['newErrors' => $newErrors], Response::HTTP_UNPROCESSABLE_ENTITY, [], []);
+            return $this->json(['newErrors' => $newErrors], Response::HTTP_UNPROCESSABLE_ENTITY);
             // return $this->json(['errorsString' => $errorsString], Response::HTTP_UNPROCESSABLE_ENTITY, [], []);
         }
     
         $em->persist($movie);
         $em->flush();
 
-        return $this->json(['movie' => $movie], Response::HTTP_CREATED, ['Location: http://localhost:8000/api/movies/' . $movie->getId()], ['groups' => 'movies_get']);
+        return $this->json(['movie' => $movie], Response::HTTP_CREATED, ['Location' => $this->generateUrl( 'api_movies_show', [ 'id' => $movie->getId()] )], ['groups' => 'movies_get']);
 
         // return $this->redirectToRoute('api_movies_show', [ 'id' => $movie->getId()], Response::HTTP_CREATED);
 
@@ -92,10 +92,20 @@ class MovieController extends AbstractController
     /**
      * Edit a movie
      * 
-     * @Route("/api/movies/{id<\d+>}/edit", name="api_movies_edit", methods={"PUT", "PATCH"})
+     * @Route("/api/movies/{id<\d+>}", name="api_movies_edit", methods={"PUT", "PATCH"})
      */
-    public function edit(Request $request, Movie $movie, SerializerInterface $serializer, EntityManagerInterface $em, ValidatorInterface $vi): Response
+    public function edit(Request $request, Movie $movie = null, SerializerInterface $serializer, EntityManagerInterface $em, ValidatorInterface $vi): Response
     {
+        if (null === $movie) {
+
+            $error = 'Ce film n\'existe pas';
+
+            return $this->json(['error' => $error], Response::HTTP_NOT_FOUND);
+        }
+
+        //TODO : Pour PUT, s'assurer qu'on ait un certain nombre de champs sinon => 422 HTTP_UNPROCESSABLE_ENTITY
+        //TODO : Pour PATCH, s'assurer qu'on au moins un champ sinon => 422 HTTP_UNPROCESSABLE_ENTITY
+
         $jsonContent = $request->getContent();
 
         $movie = $serializer->deserialize($jsonContent, Movie::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $movie]);
@@ -106,8 +116,8 @@ class MovieController extends AbstractController
 
         $newErrors = [];
 
-        foreach ($errors as $i => $error) {
-            $newErrors[$i] = [$error->getPropertyPath(), $error->getMessage()];
+        foreach ($errors as $error) {
+            $newErrors[$error->getPropertyPath()][] = $error->getMessage();
         }
 
         // dd($newErrors);
@@ -118,17 +128,21 @@ class MovieController extends AbstractController
              * ConstraintViolationList object. This gives us a nice string
              * for debugging.
              */
+            
             $errorsString = (string) $errors;
-    
+                
             // return new Response($errorsString);
-            return $this->json(['newErrors' => $newErrors], Response::HTTP_UNPROCESSABLE_ENTITY, [], []);
-            // return $this->json(['errorsString' => $errorsString], Response::HTTP_UNPROCESSABLE_ENTITY, [], []);
+            // return $this->json(['errorsString' => $errorsString], Response::HTTP_UNPROCESSABLE_ENTITY);
+
+            return $this->json(['newErrors' => $newErrors], Response::HTTP_UNPROCESSABLE_ENTITY);
+
         }
     
-        $em->persist($movie);
         $em->flush();
 
-        return $this->json(['movie' => $movie], Response::HTTP_ACCEPTED, ['Location: http://localhost:8000/api/movies/' . $movie->getId()], ['groups' => 'movies_get']);
+        //TODO : Conditionner le message de retour au cas l'entité ne serait pas modifiée
+
+        return $this->json(['movie' => $movie], Response::HTTP_OK, ['Location' => $this->generateUrl( 'api_movies_show', [ 'id' => $movie->getId()] )], ['groups' => 'movies_get']);
 
         // return $this->redirectToRoute('api_movies_show', [ 'id' => $movie->getId()], Response::HTTP_CREATED);
 
@@ -137,7 +151,7 @@ class MovieController extends AbstractController
     /**
      * Delete a movie
      * 
-     * @Route("/api/movies/{id<\d+>}/delete", name="api_movies_delete", methods="DELETE")
+     * @Route("/api/movies/{id<\d+>}", name="api_movies_delete", methods="DELETE")
      */
     public function delete(Movie $movie = null, EntityManagerInterface $em)
     {
@@ -145,7 +159,7 @@ class MovieController extends AbstractController
 
             $error = 'Ce film n\'existe pas';
 
-            return $this->json(['error' => $error], Response::HTTP_NOT_FOUND, [], []);
+            return $this->json(['error' => $error], Response::HTTP_NOT_FOUND);
         }
     
         $em->remove($movie);
@@ -153,7 +167,7 @@ class MovieController extends AbstractController
 
         $remove = "Le film a bien été supprimé.";
 
-        return $this->json(['remove' => $remove], Response::HTTP_OK, [], []);
+        return $this->json(['remove' => $remove], Response::HTTP_OK);
     }
 
 }
