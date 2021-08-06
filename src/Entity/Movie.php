@@ -126,10 +126,10 @@ class Movie
      */
     private $Synopsis;
 
-    // public function __toString()
-    // {
-    //     return $this->title;
-    // }
+    public function __toString()
+    {
+        return $this->title;
+    }
 
     public function __construct()
     {
