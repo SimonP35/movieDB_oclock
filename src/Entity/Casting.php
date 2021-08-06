@@ -39,14 +39,14 @@ class Casting
     private $credit_order;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Person::class, inversedBy="castings")
+     * @ORM\ManyToOne(targetEntity=Person::class, cascade={"remove"}, inversedBy="castings")
      * @ORM\JoinColumn(nullable=false)
      * @Groups({"movies_get"})
      */
     private $person;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="castings")
+     * @ORM\ManyToOne(targetEntity=Movie::class, cascade={"remove"}, inversedBy="castings")
      * @ORM\JoinColumn(nullable=false)
      */
     private $movie;

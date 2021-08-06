@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\Movie;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
+use App\Repository\CastingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -89,6 +90,27 @@ class MovieController extends AbstractController
 
         return $this->render('back/movie/edit.html.twig', ['form' => $form->createView()]);
     }
+    
+    /**
+     * Afficher un film
+     *
+     * @Route("/back/movie/read/{id}", name="back_movie_read", methods={"GET"}, requirements={"id"="\d+"})
+     */
+    public function read(Movie $movie = null, CastingRepository $castingRepository): Response
+    {
+        // 404 ?
+        if ($movie === null) {
+            throw $this->createNotFoundException('Film non trouvé.');
+        }
+
+        // Jointure sur les personnes
+        $castings = $castingRepository->findAllByMovieJoinedToPerson($movie);
+
+        return $this->render('back/movie/read.html.twig', [
+            'movie' => $movie,
+            'castings' => $castings,
+        ]);
+    }
 
     /**
      * Delete Movie
@@ -97,7 +119,7 @@ class MovieController extends AbstractController
     public function delete(Movie $movie = null, EntityManagerInterface $entityManager): Response
     {
         if ($movie === null) {
-            throw $this->createNotFoundException('Article non trouvé.');
+            throw $this->createNotFoundException('Film non trouvé.');
         }
 
         $entityManager->remove($movie);
@@ -106,6 +128,6 @@ class MovieController extends AbstractController
         $this->addFlash('success', 'Le film a bien été supprimé !');
 
         return $this->redirectToRoute('back_movie_list');
-}
+    }
 
 }

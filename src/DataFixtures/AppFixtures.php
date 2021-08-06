@@ -18,7 +18,7 @@ use App\DataFixtures\Provider\MovieDbProvider;
 use App\Service\OmdbApi;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Service\SlugService;
-
+use Doctrine\DBAL\Connection;
 
 class AppFixtures extends Fixture
 {
@@ -28,15 +28,38 @@ class AppFixtures extends Fixture
 
     private $omdbApi;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher, SlugService $slugService, OmdbApi $omdbApi)
+    private $co;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher, SlugService $slugService, OmdbApi $omdbApi, Connection $co)
     {
         $this->passwordHasher = $passwordHasher;
         $this->slugService = $slugService;
         $this->omdbApi = $omdbApi;
+        $this->co = $co;
+    }
+
+    private function truncate()
+    {
+        // On passen mode SQL ! On cause avec MySQL
+        // Désactivation des contraintes FK
+        $this->co->executeQuery('SET foreign_key_checks = 0');
+        // On tronque
+        $this->co->executeQuery('TRUNCATE TABLE casting');
+        $this->co->executeQuery('TRUNCATE TABLE department');
+        $this->co->executeQuery('TRUNCATE TABLE genre');
+        $this->co->executeQuery('TRUNCATE TABLE job');
+        $this->co->executeQuery('TRUNCATE TABLE movie');
+        $this->co->executeQuery('TRUNCATE TABLE movie_genre');
+        $this->co->executeQuery('TRUNCATE TABLE person');
+        $this->co->executeQuery('TRUNCATE TABLE review');
+        $this->co->executeQuery('TRUNCATE TABLE team');
+        $this->co->executeQuery('TRUNCATE TABLE user');
     }
 
     public function load(ObjectManager $manager)
     {
+        $this->truncate();
+
         $faker = Factory::create('fr_FR');
 
         // Notre fournisseur de données, ajouté à Faker

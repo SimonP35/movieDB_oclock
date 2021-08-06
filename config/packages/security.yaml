@@ -69,7 +69,7 @@ security:
         # Routes Back
         - { path: ^/back/login, roles: ROLE_MANAGER }
 
-        - { path: ^/back/(movie|job|casting)/list, roles: ROLE_MANAGER }
+        - { path: ^/back/(movie|job|casting|user)/list, roles: ROLE_MANAGER }
 
         - { path: ^/back/(movie|job|casting|user)/(add|edit|delete), roles: ROLE_ADMIN }
 
