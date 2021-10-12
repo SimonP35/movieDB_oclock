@@ -1,0 +1,234 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<svg width="648" height="559" view_box="0 0 648 559"
+xmlns="http://www.w3.org/2000/svg"
+xmlns:link="http://www.w3.org/1999/xlink">\n\n<desc>Généré par Mocodo 2.3.7 le Mon, 11 Oct 2021 06:47:54</desc>
+
+<rect id="frame" x="0" y="0" width="648" height="559" fill="#ffffbf" stroke="none" stroke-width="0"/>
+
+<!-- Entity CASTING -->
+<g id="entity-CASTING">
+	<g id="frame-CASTING">
+		<rect x="367" y="9" width="86" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="367" y="34.0" width="86" height="127" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="367" y="9" width="86" height="152" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="367" y1="34" x2="453" y2="34" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="381" y="26.7" fill="#000000" font-family="Verdana" font-size="12">CASTING</text>
+	<text x="372" y="51.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="372" y1="54" x2="384" y2="54" stroke="#000000" stroke-width="1"/>
+	<text x="372" y="68.7" fill="#000000" font-family="Verdana" font-size="12">#person_id</text>
+	<text x="372" y="85.8" fill="#000000" font-family="Verdana" font-size="12">#movie_id</text>
+	<text x="372" y="102.8" fill="#000000" font-family="Verdana" font-size="12">role</text>
+	<text x="372" y="119.8" fill="#000000" font-family="Verdana" font-size="12">credit_order</text>
+	<text x="372" y="136.8" fill="#000000" font-family="Verdana" font-size="12">createdAt</text>
+	<text x="372" y="153.8" fill="#000000" font-family="Verdana" font-size="12">updatedAt</text>
+</g>
+
+<!-- Entity MOVIE_GENRE -->
+<g id="entity-MOVIE_GENRE">
+	<g id="frame-MOVIE_GENRE">
+		<rect x="359" y="448" width="102" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="359" y="473.0" width="102" height="43" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="359" y="448" width="102" height="68" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="359" y1="473" x2="461" y2="473" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="364" y="465.7" fill="#000000" font-family="Verdana" font-size="12">MOVIE_GENRE</text>
+	<text x="364" y="490.8" fill="#000000" font-family="Verdana" font-size="12">#movie_id</text>
+	<line x1="364" y1="493" x2="430" y2="493" stroke="#000000" stroke-width="1"/>
+	<text x="364" y="507.8" fill="#000000" font-family="Verdana" font-size="12">#genre_id</text>
+</g>
+
+<!-- Entity MOVIE -->
+<g id="entity-MOVIE">
+	<g id="frame-MOVIE">
+		<rect x="365" y="186" width="90" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="365" y="211.0" width="90" height="179" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="365" y="186" width="90" height="204" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="365" y1="211" x2="455" y2="211" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="389" y="203.7" fill="#000000" font-family="Verdana" font-size="12">MOVIE</text>
+	<text x="370" y="228.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="370" y1="231" x2="382" y2="231" stroke="#000000" stroke-width="1"/>
+	<text x="370" y="245.7" fill="#000000" font-family="Verdana" font-size="12">title</text>
+	<text x="370" y="262.7" fill="#000000" font-family="Verdana" font-size="12">release_date</text>
+	<text x="370" y="279.7" fill="#000000" font-family="Verdana" font-size="12">duration</text>
+	<text x="370" y="296.8" fill="#000000" font-family="Verdana" font-size="12">poster</text>
+	<text x="370" y="313.8" fill="#000000" font-family="Verdana" font-size="12">rating</text>
+	<text x="370" y="330.8" fill="#000000" font-family="Verdana" font-size="12">slug</text>
+	<text x="370" y="347.8" fill="#000000" font-family="Verdana" font-size="12">synopsis</text>
+	<text x="370" y="364.8" fill="#000000" font-family="Verdana" font-size="12">createdAt</text>
+	<text x="370" y="381.8" fill="#000000" font-family="Verdana" font-size="12">updatedAt</text>
+</g>
+
+<!-- Entity REVIEW -->
+<g id="entity-REVIEW">
+	<g id="frame-REVIEW">
+		<rect x="525" y="178" width="82" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="525" y="203.0" width="82" height="195" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="525" y="178" width="82" height="220" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="525" y1="203" x2="607" y2="203" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="541" y="195.7" fill="#000000" font-family="Verdana" font-size="12">REVIEW</text>
+	<text x="530" y="220.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="530" y1="223" x2="542" y2="223" stroke="#000000" stroke-width="1"/>
+	<text x="530" y="237.7" fill="#000000" font-family="Verdana" font-size="12">#movie_id</text>
+	<text x="530" y="254.7" fill="#000000" font-family="Verdana" font-size="12">username</text>
+	<text x="530" y="271.7" fill="#000000" font-family="Verdana" font-size="12">email</text>
+	<text x="530" y="288.8" fill="#000000" font-family="Verdana" font-size="12">content</text>
+	<text x="530" y="305.8" fill="#000000" font-family="Verdana" font-size="12">rating</text>
+	<text x="530" y="322.8" fill="#000000" font-family="Verdana" font-size="12">reactions</text>
+	<text x="530" y="339.8" fill="#000000" font-family="Verdana" font-size="12">watchedAt</text>
+	<text x="530" y="356.8" fill="#000000" font-family="Verdana" font-size="12">publishedAt</text>
+	<text x="530" y="373.8" fill="#000000" font-family="Verdana" font-size="12">createdAt</text>
+	<text x="530" y="390.8" fill="#000000" font-family="Verdana" font-size="12">updatedAt</text>
+</g>
+
+<!-- Entity PERSON -->
+<g id="entity-PERSON">
+	<g id="frame-PERSON">
+		<rect x="218" y="26" width="74" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="218" y="51.0" width="74" height="93" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="218" y="26" width="74" height="118" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="218" y1="51" x2="292" y2="51" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="229" y="43.7" fill="#000000" font-family="Verdana" font-size="12">PERSON</text>
+	<text x="223" y="68.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="223" y1="71" x2="235" y2="71" stroke="#000000" stroke-width="1"/>
+	<text x="223" y="85.8" fill="#000000" font-family="Verdana" font-size="12">firstname</text>
+	<text x="223" y="102.8" fill="#000000" font-family="Verdana" font-size="12">lastname</text>
+	<text x="223" y="119.8" fill="#000000" font-family="Verdana" font-size="12">createdAt</text>
+	<text x="223" y="136.8" fill="#000000" font-family="Verdana" font-size="12">updatedAt</text>
+</g>
+
+<!-- Entity JOB -->
+<g id="entity-JOB">
+	<g id="frame-JOB">
+		<rect x="41" y="229" width="110" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="41" y="254.0" width="110" height="93" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="41" y="229" width="110" height="118" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="41" y1="254" x2="151" y2="254" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="84" y="246.7" fill="#000000" font-family="Verdana" font-size="12">JOB</text>
+	<text x="46" y="271.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="46" y1="274" x2="58" y2="274" stroke="#000000" stroke-width="1"/>
+	<text x="46" y="288.8" fill="#000000" font-family="Verdana" font-size="12">#department_id</text>
+	<text x="46" y="305.8" fill="#000000" font-family="Verdana" font-size="12">name</text>
+	<text x="46" y="322.8" fill="#000000" font-family="Verdana" font-size="12">createdAt</text>
+	<text x="46" y="339.8" fill="#000000" font-family="Verdana" font-size="12">updatedAt</text>
+</g>
+
+<!-- Entity USER -->
+<g id="entity-USER">
+	<g id="frame-USER">
+		<rect x="59" y="414" width="74" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="59" y="439.0" width="74" height="111" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="59" y="414" width="74" height="136" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="59" y1="439" x2="133" y2="439" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="79" y="431.7" fill="#000000" font-family="Verdana" font-size="12">USER</text>
+	<text x="64" y="456.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="64" y1="459" x2="76" y2="459" stroke="#000000" stroke-width="1"/>
+	<text x="64" y="473.7" fill="#000000" font-family="Verdana" font-size="12">email</text>
+	<text x="64" y="490.8" fill="#000000" font-family="Verdana" font-size="12">roles</text>
+	<text x="64" y="507.8" fill="#000000" font-family="Verdana" font-size="12">password</text>
+	<text x="64" y="524.8" fill="#000000" font-family="Verdana" font-size="12">createdAt</text>
+	<text x="64" y="541.8" fill="#000000" font-family="Verdana" font-size="12">updatedAt</text>
+</g>
+
+<!-- Entity TEAM -->
+<g id="entity-TEAM">
+	<g id="frame-TEAM">
+		<rect x="215" y="237" width="80" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="215" y="262.0" width="80" height="77" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="215" y="237" width="80" height="102" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="215" y1="262" x2="295" y2="262" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="238" y="254.7" fill="#000000" font-family="Verdana" font-size="12">TEAM</text>
+	<text x="220" y="279.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="220" y1="282" x2="232" y2="282" stroke="#000000" stroke-width="1"/>
+	<text x="220" y="296.8" fill="#000000" font-family="Verdana" font-size="12">#person_id</text>
+	<text x="220" y="313.8" fill="#000000" font-family="Verdana" font-size="12">#job_id</text>
+	<text x="220" y="330.8" fill="#000000" font-family="Verdana" font-size="12">#movie_id</text>
+</g>
+
+<!-- Entity DEPARTMENT -->
+<g id="entity-DEPARTMENT">
+	<g id="frame-DEPARTMENT">
+		<rect x="49" y="34" width="94" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="49" y="59.0" width="94" height="77" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="49" y="34" width="94" height="102" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="49" y1="59" x2="143" y2="59" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="54" y="51.7" fill="#000000" font-family="Verdana" font-size="12">DEPARTMENT</text>
+	<text x="54" y="76.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="54" y1="79" x2="66" y2="79" stroke="#000000" stroke-width="1"/>
+	<text x="54" y="93.8" fill="#000000" font-family="Verdana" font-size="12">name</text>
+	<text x="54" y="110.8" fill="#000000" font-family="Verdana" font-size="12">createdAt</text>
+	<text x="54" y="127.8" fill="#000000" font-family="Verdana" font-size="12">updatedAt</text>
+</g>
+
+<!-- Entity GENRE -->
+<g id="entity-GENRE">
+	<g id="frame-GENRE">
+		<rect x="529" y="423" width="74" height="25" fill="#abdda4" stroke="#abdda4" stroke-width="0"/>
+		<rect x="529" y="448.0" width="74" height="93" fill="#e6f598" stroke="#e6f598" stroke-width="0"/>
+		<rect x="529" y="423" width="74" height="118" fill="none" stroke="#66c2a5" stroke-width="2"/>
+		<line x1="529" y1="448" x2="603" y2="448" stroke="#66c2a5" stroke-width="1"/>
+	</g>
+	<text x="544" y="440.7" fill="#000000" font-family="Verdana" font-size="12">GENRE</text>
+	<text x="534" y="465.7" fill="#000000" font-family="Verdana" font-size="12">id</text>
+	<line x1="534" y1="468" x2="546" y2="468" stroke="#000000" stroke-width="1"/>
+	<text x="534" y="482.8" fill="#000000" font-family="Verdana" font-size="12">name</text>
+	<text x="534" y="499.8" fill="#000000" font-family="Verdana" font-size="12">slug</text>
+	<text x="534" y="516.8" fill="#000000" font-family="Verdana" font-size="12">createdAt</text>
+	<text x="534" y="533.8" fill="#000000" font-family="Verdana" font-size="12">updatedAt</text>
+</g>
+
+<!-- Link from "id" (CASTING) to "id" (PERSON) -->
+<path d="M367 64.5 C 329.5 64.5 342.0 64.5 292 64.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 292 64.5 L 304.0 58.5 L 300.0 64.5 L 304.0 70.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="367" cy="64.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+
+<!-- Link from "id" (CASTING) to "id" (MOVIE) -->
+<path d="M453 81.5 C 507 153.0 509 224.5 455 224.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 455 224.5 L 467.0 218.5 L 463.0 224.5 L 467.0 230.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="453" cy="81.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+
+<!-- Link from "id" (MOVIE_GENRE) to "id" (MOVIE) -->
+<path d="M461 486.5 C 515 355.5 509 224.5 455 224.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 455 224.5 L 467.0 218.5 L 463.0 224.5 L 467.0 230.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="461" cy="486.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+
+<!-- Link from "id" (MOVIE_GENRE) to "id" (GENRE) -->
+<path d="M461 503.5 C 495.0 482.5 483.666666667 461.5 529 461.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 529 461.5 L 517.0 467.5 L 521.0 461.5 L 517.0 455.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="461" cy="503.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+
+<!-- Link from "id" (REVIEW) to "id" (MOVIE) -->
+<path d="M525 233.5 C 490.0 229.0 501.666666667 224.5 455 224.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 455 224.5 L 467.0 218.5 L 463.0 224.5 L 467.0 230.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="525" cy="233.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+
+<!-- Link from "id" (JOB) to "id" (DEPARTMENT) -->
+<path d="M41 284.5 C -13 178.5 -5 72.5 49 72.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 49 72.5 L 37.0 78.5 L 41.0 72.5 L 37.0 66.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="41" cy="284.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+
+<!-- Link from "id" (TEAM) to "id" (PERSON) -->
+<path d="M215 292.5 C 161 178.5 164 64.5 218 64.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 218 64.5 L 206.0 70.5 L 210.0 64.5 L 206.0 58.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="215" cy="292.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+
+<!-- Link from "id" (TEAM) to "id" (JOB) -->
+<path d="M215 309.5 C 183.0 288.5 193.666666667 267.5 151 267.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 151 267.5 L 163.0 261.5 L 159.0 267.5 L 163.0 273.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="215" cy="309.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+
+<!-- Link from "id" (TEAM) to "id" (MOVIE) -->
+<path d="M295 326.5 C 330.0 275.5 318.333333333 224.5 365 224.5" fill="none" stroke="#f46d43" stroke-width="2"/>
+<path d="M 365 224.5 L 353.0 230.5 L 357.0 224.5 L 353.0 218.5 Z" fill="#f46d43" stroke-width="0"/>
+<circle cx="295" cy="326.5" r="2" stroke="#f46d43" stroke-width="2" fill="#f46d43"/>
+</svg>

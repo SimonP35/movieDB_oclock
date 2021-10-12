@@ -124,7 +124,7 @@ class Movie
      * @ORM\Column(type="text")
      * @Groups({"movies_get"})
      */
-    private $Synopsis;
+    private $synopsis;
 
     public function __toString()
     {
@@ -359,12 +359,12 @@ class Movie
 
     public function getSynopsis(): ?string
     {
-        return $this->Synopsis;
+        return $this->synopsis;
     }
 
-    public function setSynopsis(string $Synopsis): self
+    public function setSynopsis(string $synopsis): self
     {
-        $this->Synopsis = $Synopsis;
+        $this->synopsis = $synopsis;
 
         return $this;
     }

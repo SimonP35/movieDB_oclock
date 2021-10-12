@@ -1,0 +1,114 @@
+<html>
+<head>
+<meta charset='utf-8'>
+<style>
+  #mld .relation { font-variant: small-caps; font-weight: bold }
+  #mld .primary { text-decoration: underline }
+  #mld .foreign { font-style: oblique }
+  #mld .normal { }
+</style>
+</head>
+<body>
+<div id='mld'>
+<div>
+  <span class='relation'>DEPARTMENT</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>name</span>,
+    <span class='normal'>createdAt</span>,
+    <span class='normal'>updatedAt</span>
+  )
+</div>
+<div>
+  <span class='relation'>PERSON</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>firstname</span>,
+    <span class='normal'>lastname</span>,
+    <span class='normal'>createdAt</span>,
+    <span class='normal'>updatedAt</span>
+  )
+</div>
+<div>
+  <span class='relation'>CASTING</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>#person_id</span>,
+    <span class='normal'>#movie_id</span>,
+    <span class='normal'>role</span>,
+    <span class='normal'>credit_order</span>,
+    <span class='normal'>createdAt</span>,
+    <span class='normal'>updatedAt</span>
+  )
+</div>
+<div>
+  <span class='relation'>JOB</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>#department_id</span>,
+    <span class='normal'>name</span>,
+    <span class='normal'>createdAt</span>,
+    <span class='normal'>updatedAt</span>
+  )
+</div>
+<div>
+  <span class='relation'>TEAM</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>#person_id</span>,
+    <span class='normal'>#job_id</span>,
+    <span class='normal'>#movie_id</span>
+  )
+</div>
+<div>
+  <span class='relation'>MOVIE</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>title</span>,
+    <span class='normal'>release_date</span>,
+    <span class='normal'>duration</span>,
+    <span class='normal'>poster</span>,
+    <span class='normal'>rating</span>,
+    <span class='normal'>slug</span>,
+    <span class='normal'>synopsis</span>,
+    <span class='normal'>createdAt</span>,
+    <span class='normal'>updatedAt</span>
+  )
+</div>
+<div>
+  <span class='relation'>REVIEW</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>#movie_id</span>,
+    <span class='normal'>username</span>,
+    <span class='normal'>email</span>,
+    <span class='normal'>content</span>,
+    <span class='normal'>rating</span>,
+    <span class='normal'>reactions</span>,
+    <span class='normal'>watchedAt</span>,
+    <span class='normal'>publishedAt</span>,
+    <span class='normal'>createdAt</span>,
+    <span class='normal'>updatedAt</span>
+  )
+</div>
+<div>
+  <span class='relation'>USER</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>email</span>,
+    <span class='normal'>roles</span>,
+    <span class='normal'>password</span>,
+    <span class='normal'>createdAt</span>,
+    <span class='normal'>updatedAt</span>
+  )
+</div>
+<div>
+  <span class='relation'>MOVIE_GENRE</span> (
+    <span class='primary'>#movie_id</span>,
+    <span class='normal'>#genre_id</span>
+  )
+</div>
+<div>
+  <span class='relation'>GENRE</span> (
+    <span class='primary'>id</span>,
+    <span class='normal'>name</span>,
+    <span class='normal'>slug</span>,
+    <span class='normal'>createdAt</span>,
+    <span class='normal'>updatedAt</span>
+  )
+</div>
+</div>
+</body>
+</html>

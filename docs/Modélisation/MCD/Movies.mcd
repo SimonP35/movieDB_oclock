@@ -1,0 +1,14 @@
+REVIEW: username, email, content, rating, reactions, watchedAt, publishedAt, createdAt, updatedAt
+CASTING, 0N PERSON, 1N MOVIE : role, credit_order, createdAt, updatedAt
+PERSON: firstname, lastname, createdAt,updatedAt
+USER: email, roles, password, createdAt, updatedAt
+
+RELATED_TO, 01 REVIEW, 0N MOVIE
+MOVIE: title, release_date, duration, poster, rating, slug, synopsis, createdAt, updatedAt
+TEAM, 0N PERSON, 1N MOVIE, 0N JOB :
+DEPARTMENT: name, createdAt, updatedAt
+
+GENRE: name, slug, createdAt,updatedAt
+HAVE, 1N MOVIE, 1N GENRE
+JOB: name, createdAt, updatedAt
+BELONGS_TO, 1N DEPARTMENT, 11 JOB

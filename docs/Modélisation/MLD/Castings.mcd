@@ -1,0 +1,25 @@
+:
+DEPARTMENT: id, name, createdAt, updatedAt
+:
+PERSON: id, firstname, lastname, createdAt,updatedAt
+:
+CASTING: id, #person_id->PERSON->id, #movie_id->MOVIE->id, role, credit_order, createdAt, updatedAt
+:::
+
+:
+JOB: id, #department_id->DEPARTMENT->id, name, createdAt, updatedAt
+:
+TEAM: id, #person_id->PERSON->id, #job_id->JOB->id, #movie_id->MOVIE->id
+:
+MOVIE: id, title, release_date, duration, poster, rating, slug, synopsis, createdAt, updatedAt
+:
+REVIEW: id, #movie_id->MOVIE->id, username, email, content, rating, reactions, watchedAt, publishedAt, createdAt, updatedAt
+:
+
+:
+USER: id, email, roles, password, createdAt, updatedAt
+:::
+MOVIE_GENRE: #movie_id->MOVIE->id, #genre_id->GENRE->id
+:
+GENRE: id, name, slug, createdAt, updatedAt
+:
